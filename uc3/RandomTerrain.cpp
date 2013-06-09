@@ -11,8 +11,11 @@ void RandomTerrain::DefineTerrain(int x, int y)
     {
         Ogre::Image img;
         GetTerrainImage(x % 2 != 0, y % 2 != 0, img);
-        m_terrainGroup->defineTerrain(x, y, &img);
-        m_terrainsImported = true;
+		
+
+		float heights[3] = {1,2,3};
+
+        m_terrainGroup->defineTerrain(x, y, heights);
     }
 
 }

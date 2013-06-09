@@ -5,11 +5,19 @@
 
 class Terrain
 {
+
+	protected:
+		Ogre::TerrainGroup *m_terrainGroup;
+
 	private:
 	
 	Ogre::TerrainGlobalOptions *m_terrainGlobals;
-	Ogre::TerrainGroup *m_terrainGroup;
+
 	bool m_terrainsImported;
+
+
+
+
 
 	public:
 

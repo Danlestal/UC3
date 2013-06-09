@@ -77,21 +77,18 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
 	m_pCamera->setNearClipDistance(1);
  
 	m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
-	m_pViewport->setBackgroundColour(ColourValue(0.8f, 0.7f, 0.6f, 1.0f));
+	m_pViewport->setBackgroundColour(Ogre::ColourValue::Black);
  
 	m_pCamera->setAspectRatio(Real(m_pViewport->getActualWidth()) / Real(m_pViewport->getActualHeight()));
  
 	m_pViewport->setCamera(m_pCamera);
  
 	size_t hWnd = 0;
-        OIS::ParamList paramList;
-        m_pRenderWnd->getCustomAttribute("WINDOW", &hWnd);
+	m_pRenderWnd->getCustomAttribute("WINDOW", &hWnd);
+	m_pInputMgr = OIS::InputManager::createInputSystem(hWnd);
+
  
-	paramList.insert(OIS::ParamList::value_type("WINDOW", Ogre::StringConverter::toString(hWnd)));
- 
-	m_pInputMgr = OIS::InputManager::createInputSystem(paramList);
- 
-        m_pKeyboard = static_cast<OIS::Keyboard*>(m_pInputMgr->createInputObject(OIS::OISKeyboard, true));
+    m_pKeyboard = static_cast<OIS::Keyboard*>(m_pInputMgr->createInputObject(OIS::OISKeyboard, true));
 	m_pMouse = static_cast<OIS::Mouse*>(m_pInputMgr->createInputObject(OIS::OISMouse, true));
  
 	m_pMouse->getMouseState().height = m_pRenderWnd->getHeight();
@@ -109,7 +106,7 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
  
 	Ogre::String secName, typeName, archName;
 	Ogre::ConfigFile cf;
-        cf.load("resources.cfg");
+    cf.load("resources.cfg");
  
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
         while (seci.hasMoreElements())

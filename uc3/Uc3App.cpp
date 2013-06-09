@@ -1,5 +1,6 @@
 #include "Uc3App.h"
 #include "Terrain.h"
+#include "RandomTerrain.h"
 
 Uc3App::Uc3App()
 {
@@ -26,19 +27,17 @@ void Uc3App::start()
  
 void Uc3App::setupScene()
 {
-	
-	OgreFramework::getSingletonPtr()->m_pSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
+	/*
+	Ogre::Plane plane;
+	plane.d = 100;
+	plane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
+	OgreFramework::getSingletonPtr()->m_pSceneMgr->setSkyPlane(true, plane, "Examples/SpaceSkyPlane", 1500, 75);
 	OgreFramework::getSingletonPtr()->m_pSceneMgr->createLight("Light")->setPosition(75,75,75);
-	
-	Terrain *terrain = new Terrain();
-	terrain->ConfigureGlobals();
-	terrain->ConfigureGroup();
-	//terrain->ConfigureTerrainDefaults(OgreFramework::getSingletonPtr()->m_light);
-	
-	
 	m_pOgreHeadEntity = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("OgreHeadEntity", "ogrehead.mesh");
 	m_pOgreHeadNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode("OgreHeadNode");
 	m_pOgreHeadNode->attachObject(m_pOgreHeadEntity);
+	*/
+
 }
   
 void Uc3App::runDemo()

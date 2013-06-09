@@ -12,10 +12,11 @@ void Terrain::ConfigureGroup()
     m_terrainGroup->setOrigin(Ogre::Vector3::ZERO);
 
 	ConfigureTerrainDefaults(OgreFramework::getSingletonPtr()->m_light);
-
+	/*
 	for (long x = 0; x <= 0; ++x)
         for (long y = 0; y <= 0; ++y)
-            DefineTerrain(x, y);
+*/
+            DefineTerrain(0, 0);
  
     // sync load since we want everything in place when we start
     m_terrainGroup->loadAllTerrains(true);
@@ -52,17 +53,18 @@ void Terrain::ConfigureTerrainDefaults(Ogre::Light *light)
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
 
-	defaultimp.layerList.resize(3);
+	defaultimp.layerList.resize(1);
     defaultimp.layerList[0].worldSize = 100;
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
-    defaultimp.layerList[1].worldSize = 30;
+    /*
+	defaultimp.layerList[1].worldSize = 30;
     defaultimp.layerList[1].textureNames.push_back("grass_green-01_diffusespecular.dds");
     defaultimp.layerList[1].textureNames.push_back("grass_green-01_normalheight.dds");
     defaultimp.layerList[2].worldSize = 200;
     defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_diffusespecular.dds");
     defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_normalheight.dds");
-
+	*/
 }
 
 void Terrain::DefineTerrain(int x, int y)
