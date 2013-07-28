@@ -1,0 +1,49 @@
+material UC3/Basic
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.2 0.2 0.2
+
+			texture_unit
+			{
+				texture MRAMOR-bump.jpg
+			}
+		}
+	}
+}
+
+material UC3/Grey
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.4 0.4 0.75 0.5
+			scene_blend alpha_blend
+            depth_write off
+		}
+		
+	}
+}
+
+material UC3/WaterStream
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.1 0.1 0.1
+			scene_blend add
+			depth_write off
+			cull_software none
+			cull_hardware none
+
+			texture_unit
+			{
+				texture Water01.jpg
+			}
+		}
+	}
+}
