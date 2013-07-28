@@ -1,0 +1,1 @@
+set OGRE_HOME=C:\programacion\juegos\ogre1.9

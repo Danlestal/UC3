@@ -22,7 +22,10 @@
 #include <OISMouse.h>
 #include <OgreTerrain.h>
 #include <OgreTerrainGroup.h>
- 
+#include <OgreVolumeChunk.h>
+#include <OgreVolumeCSGSource.h>
+#include <OgreVolumeCacheSource.h>
+
 #include <SdkTrays.h>
  
 //|||||||||||||||||||||||||||||||||||||||||||||||

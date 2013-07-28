@@ -130,14 +130,14 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
 	OgreBites::InputContext inputContext = OgreBites::InputContext::InputContext();
 	inputContext.mMouse = m_pMouse;
 
-/*
-     TODO: check the overlay system.
+
+     /*
 
 	m_pTrayMgr = new OgreBites::SdkTrayManager("TrayMgr", m_pRenderWnd, inputContext, this);
         m_pTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
         m_pTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
         m_pTrayMgr->hideCursor();
- */
+		*/
 	m_pRenderWnd->setActive(true);
  
 	return true;

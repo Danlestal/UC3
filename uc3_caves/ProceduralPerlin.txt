@@ -1,0 +1,37 @@
+// Create the texture
+	Ogre::TexturePtr texture = Ogre::TextureManager::getSingleton().createManual(
+																				"DynamicTexture", // name
+																				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+																				Ogre::TEX_TYPE_2D,      // type
+																				256, 256,         // width & height
+																				0,                // number of mipmaps
+																				Ogre::PF_BYTE_BGRA,     // pixel format
+																				Ogre::TU_DEFAULT);      // usage; should be TU_DYNAMIC_WRITE_ONLY_DISCARDABLE for
+																										// textures updated very often (e.g. each frame)
+ 
+	Ogre::HardwarePixelBufferSharedPtr pixelBuffer = texture->getBuffer();
+	pixelBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL);
+	const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
+	Ogre::uint8* pDest = static_cast<Ogre::uint8*>(pixelBox.data);
+
+	for (size_t j = 0; j < 256; j++)
+	{
+		for(size_t i = 0; i < 256; i++)
+		{
+			int color = (int) PerlinNoiseGenerator::scaled_octave_noise_2d(3, 0.3, 1.5 ,0,256,i,j);
+
+			*pDest++ = color; // B
+			*pDest++ =   color; // G
+			*pDest++ =   color; // R
+			*pDest++ = 127; // A
+		}
+	}
+	pixelBuffer->unlock();
+ 
+	// Create a material using the texture
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create(
+		"DynamicTextureMaterial", // name
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+	material->getTechnique(0)->getPass(0)->createTextureUnitState("DynamicTexture");
+	material->getTechnique(0)->getPass(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);

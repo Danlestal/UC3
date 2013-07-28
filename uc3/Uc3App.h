@@ -1,26 +1,18 @@
  
-#ifndef OGRE_DEMO_HPP
-#define OGRE_DEMO_HPP
+#ifndef UC3APP_HPP
+#define UC3APP_HPP
  
  
 #include "OgreFramework.h"
+#include "BasicApp.h"
  
-class Uc3App : public OIS::KeyListener
+class Uc3App : public BasicApp
 {
 	private:
-        void setupScene();
-		void runDemo();
 		Ogre::SceneNode*			m_pOgreHeadNode;
 		Ogre::Entity*				m_pOgreHeadEntity;
-		bool m_bShutdown;
-
-	public:
-		Uc3App();
-		~Uc3App();
- 
-		void start();
- 		bool keyPressed(const OIS::KeyEvent &keyEventRef);
-		bool keyReleased(const OIS::KeyEvent &keyEventRef);
+		
+		virtual void setupScene();
 };
 
 #endif 

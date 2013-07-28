@@ -11,23 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6B4658A4-88E5-473A-A6BA-77B06710FF19}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>uc3</RootNamespace>
+    <ProjectGuid>{D963C97F-6A45-493D-8450-E69D3827A001}</ProjectGuid>
+    <RootNamespace>Project1</RootNamespace>
+    <ProjectName>uc3_template</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,12 +39,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
@@ -52,13 +47,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Volume\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\programacion\juegos\UC3\uc3;$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OGRE_BUILD_HOME)\lib\$(Configuration);$(OGRE_SOURCE_HOME)\Dependencies\$(Configuration);C:\programacion\juegos\ogre_src_v1-9-0-build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;zziplib_d.lib;zlib_d.lib;OgreOverlay_d.lib;OgreTerrain_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\programacion\juegos\ogre_src_v1-9-0-build\Bin\Debug;$(OGRE_BUILD_HOME)\lib\$(Configuration);$(OGRE_SOURCE_HOME)\Dependencies\$(Configuration);C:\programacion\juegos\ogre_src_v1-9-0-build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;zziplib_d.lib;zlib_d.lib;OgreOverlay_d.lib;uc3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
@@ -88,21 +83,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="OgreFramework.cpp" />
-    <ClCompile Include="PerlinNoiseGenerator.cpp" />
-    <ClCompile Include="RandomTerrain.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="Uc3App.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="CustomizedApp.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasicApp.h" />
-    <ClInclude Include="OgreFramework.h" />
-    <ClInclude Include="PerlinNoiseGenerator.h" />
-    <ClInclude Include="RandomTerrain.h" />
-    <ClInclude Include="Terrain.h" />
-    <ClInclude Include="Uc3App.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="CustomizedApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

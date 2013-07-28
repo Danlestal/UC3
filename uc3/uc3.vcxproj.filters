@@ -25,11 +25,11 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{e35a142a-0d3b-4fdb-848e-572680adb794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Terrain">
+      <UniqueIdentifier>{c8e5f406-af1e-493e-b217-f9bbb1547053}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="World.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
@@ -45,6 +45,9 @@
     <ClCompile Include="RandomTerrain.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="PerlinNoiseGenerator.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World.h">
@@ -56,14 +59,17 @@
     <ClInclude Include="Uc3App.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="RandomTerrain.h">
+      <Filter>Header Files\Engine\Terrain</Filter>
+    </ClInclude>
     <ClInclude Include="PerlinNoiseGenerator.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Engine\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Engine\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="RandomTerrain.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="BasicApp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
