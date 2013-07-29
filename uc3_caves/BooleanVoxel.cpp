@@ -35,47 +35,60 @@ void BooleanVoxel::GetTriangle()
     /* Cube is entirely in/out of the surface */
    if (EdgeTable[cubeIndex] == 0)
       return(0);
+      
+
+   Ogre::Vector3 vector0Position = _voxelPosition + Ogre::Vector3(0,0,1);
+   Ogre::Vector3 vector1Position = _voxelPosition + Ogre::Vector3(1,0,1);
+   Ogre::Vector3 vector2Position = _voxelPosition + Ogre::Vector3(1,0,0);
+   Ogre::Vector3 vector3Position = _voxelPosition;
+   Ogre::Vector3 vector4Position = _voxelPosition + Ogre::Vector3(0,1,1);
+   Ogre::Vector3 vector5Position = _voxelPosition + Ogre::Vector3(1,1,1);
+   Ogre::Vector3 vector6Position = _voxelPosition + Ogre::Vector3(1,1,0);
+   Ogre::Vector3 vector7Position = _voxelPosition + Ogre::Vector3(0,1,0);
+
+   Ogre::Vector3 vertList[8];
+   
 
    /* Find the vertices where the surface intersects the cube */
    if (EdgeTable[cubeIndex] & 1)
-      vertlist[0] =  VertexInterp(grid.p[0],grid.p[1], _vertex0, _vertex1);
+      vertList[0] =  VertexInterp(vector0Position, vector1Position, _vertex0, _vertex1);
 
    if (EdgeTable[cubeIndex] & 2)
-      vertlist[1] = VertexInterp(grid.p[1],grid.p[2],_vertex1, _vertex2 );
+       vertList[1] = VertexInterp(vector1Position, vector2Position, _vertex1, _vertex2 );
 
    if (EdgeTable[cubeIndex] & 4)
-      vertlist[2] = VertexInterp(grid.p[2],grid.p[3], _vertex2, _vertex3);
+      vertList[2] = VertexInterp(vector2Position, vector3Position, _vertex2, _vertex3);
    
    if (EdgeTable[cubeIndex] & 8)
-      vertlist[3] = VertexInterp(grid.p[3],grid.p[0], _vertex3, _vertex0);
+      vertList[3] = VertexInterp(vector3Position, vector0Position, _vertex3, _vertex0);
    
    if (EdgeTable[cubeIndex] & 16)
-      vertlist[4] = VertexInterp(grid.p[4],grid.p[5], _vertex4, _vertex5);
+      vertList[4] = VertexInterp(vector4Position, vector5Position, _vertex4, _vertex5);
    
    if (EdgeTable[cubeIndex] & 32)
-      vertlist[5] = VertexInterp(grid.p[5],grid.p[6], _vertex5, _vertex6);
+      vertList[5] = VertexInterp(vector5Position, vector6Position, _vertex5, _vertex6);
 
    if (EdgeTable[cubeIndex] & 64)
-      vertlist[6] = VertexInterp(grid.p[6],grid.p[7], _vertex6, _vertex7);
+      vertList[6] = VertexInterp(vector6Position, vector7Position, _vertex6, _vertex7);
 
    if (EdgeTable[cubeIndex] & 128)
-      vertlist[7] = VertexInterp(grid.p[7],grid.p[4], _vertex7, _vertex4);
+      vertList[7] = VertexInterp(vector7Position, vector4Position, _vertex7, _vertex4);
 
-   if (EdgeTable[cubeindex] & 256)
-      vertlist[8] = VertexInterp(grid.p[0],grid.p[4],_vertex0, _vertex4);
+   if (EdgeTable[cubeIndex] & 256)
+      vertList[8] = VertexInterp(vector0Position, vector4Position,_vertex0, _vertex4);
 
-   if (EdgeTable[cubeindex] & 512)
-      vertlist[9] = VertexInterp(grid.p[1],grid.p[5],_vertex1, _vertex5);
+   if (EdgeTable[cubeIndex] & 512)
+      vertList[9] = VertexInterp(vector1Position, vector5Position, _vertex1, _vertex5);
 
-   if (EdgeTable[cubeindex] & 1024)
-      vertlist[10] = VertexInterp(grid.p[2],grid.p[6],_vertex2, _vertex6);
+   if (EdgeTable[cubeIndex] & 1024)
+      vertList[10] = VertexInterp(vector2Position, vector6Position,_vertex2, _vertex6);
 
-   if (EdgeTable[cubeindex] & 2048)
-      vertlist[11] = VertexInterp(grid.p[3],grid.p[7],_vertex3 ,_vertex7);
+   if (EdgeTable[cubeIndex] & 2048)
+      vertList[11] = VertexInterp(vector3Position, vector7Position ,_vertex3 ,_vertex7);
 
    /* Create the triangle */
 
-   for (i=0;triTable[cubeindex][i]!=-1;i+=3) 
+   for (int i=0;triTable[cubeindex][i]!=-1;i+=3) 
    {
       triangles[ntriang].p[0] = vertlist[triTable[cubeindex][i  ]];
       triangles[ntriang].p[1] = vertlist[triTable[cubeindex][i+1]];
@@ -83,6 +96,7 @@ void BooleanVoxel::GetTriangle()
    }
 
    return(ntriang);
+   
 }
 
 

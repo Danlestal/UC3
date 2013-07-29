@@ -1,8 +1,10 @@
 #ifndef MarchingCubes_HPP
 #define MarchingCubes_HPP
 
+#include "OgreFramework.h"
 #include "UberCube.h"
 #include "MarchingCubesTable.h"
+
 
 
 struct Voxel
@@ -27,7 +29,7 @@ struct Voxel
 		 _vertex6 = vertex6;
 		 _vertex7 = vertex7;
 	}
-}
+};
 
 
 class MarchingCubes

@@ -1,7 +1,7 @@
 #ifndef BooleanVoxel_HPP
 #define BooleanVoxel_HPP
 
-#include "Ogre.h"
+#include "OgreFramework.h"
 
 class BooleanVoxel
 {
@@ -48,6 +48,6 @@ public:
 	
 
 
-}
+};
 
 #endif
