@@ -35,7 +35,7 @@ struct Voxel
 class MarchingCubes
 {
 	public:
-		void Poligonize(UberCube* cube);
+		void Poligonize(UberCube* cube, Ogre::MeshPtr mesh);
 
 };
 

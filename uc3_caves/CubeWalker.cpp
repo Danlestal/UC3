@@ -35,9 +35,9 @@ int CubeWalker::NormalizeCoordinate(int coordinate)
 		return 0;
 	}
 
-	if(coordinate > 999)
+	if(coordinate > 99)
 	{
-		return 999;
+		return 99;
 	}
 	
 	return coordinate;
@@ -53,7 +53,7 @@ StepOnCube CubeWalker::GenerateRandomStep()
  	Ogre::Vector3 desiredDirection = _destination - _currentPosition;
 	desiredDirection.normalise();
 
-	if(generatedVector.directionEquals(desiredDirection, Ogre::Radian( 0.20F)))
+    if(generatedVector.directionEquals(desiredDirection, Ogre::Radian( 0.20F)))
 	{
 		step.jump = 2;
 	}
@@ -71,7 +71,7 @@ void CubeWalker::UpdatePosition(StepOnCube step)
 		_currentPosition.y = NormalizeCoordinate(_currentPosition.y);
 		_currentPosition.z = NormalizeCoordinate(_currentPosition.z);
 
-		_uberCube->_densityCube[(int)_currentPosition.x][(int)_currentPosition.y][(int)_currentPosition.z] = 1;
+		_uberCube->_densityCube[(int)_currentPosition.x][(int)_currentPosition.y][(int)_currentPosition.z] = true;
 	}
 
 	

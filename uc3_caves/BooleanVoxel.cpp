@@ -28,9 +28,10 @@ BooleanVoxel::BooleanVoxel(Ogre::Vector3 voxelPosition, bool vertex[])
 }
 
 
-void BooleanVoxel::GetTriangle()
+int BooleanVoxel::GetTriangle(RawTriangle* triangles)
 {
     int cubeIndex = GetEdgeTableIndex();
+    
    
     /* Cube is entirely in/out of the surface */
    if (EdgeTable[cubeIndex] == 0)
@@ -46,7 +47,7 @@ void BooleanVoxel::GetTriangle()
    Ogre::Vector3 vector6Position = _voxelPosition + Ogre::Vector3(1,1,0);
    Ogre::Vector3 vector7Position = _voxelPosition + Ogre::Vector3(0,1,0);
 
-   Ogre::Vector3 vertList[8];
+   Ogre::Vector3 vertList[12];
    
 
    /* Find the vertices where the surface intersects the cube */
@@ -86,16 +87,18 @@ void BooleanVoxel::GetTriangle()
    if (EdgeTable[cubeIndex] & 2048)
       vertList[11] = VertexInterp(vector3Position, vector7Position ,_vertex3 ,_vertex7);
 
-   /* Create the triangle */
+   /* Create the triangles */
 
-   for (int i=0;triTable[cubeindex][i]!=-1;i+=3) 
+   int trianglesNumber = 0;
+   for (int i=0; TriTable[cubeIndex][i]!=-1; i+=3) 
    {
-      triangles[ntriang].p[0] = vertlist[triTable[cubeindex][i  ]];
-      triangles[ntriang].p[1] = vertlist[triTable[cubeindex][i+1]];
-      triangles[ntriang].p[2] = vertlist[triTable[cubeindex][i+2]];
+      triangles[trianglesNumber].p[0] = vertList[TriTable[cubeIndex][i]];
+      triangles[trianglesNumber].p[1] = vertList[TriTable[cubeIndex][i+1]];
+      triangles[trianglesNumber].p[2] = vertList[TriTable[cubeIndex][i+2]];
+      trianglesNumber++;
    }
 
-   return(ntriang);
+   return(trianglesNumber);
    
 }
 

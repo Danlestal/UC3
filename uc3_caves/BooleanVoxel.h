@@ -3,6 +3,13 @@
 
 #include "OgreFramework.h"
 
+
+typedef struct {
+   Ogre::Vector3 p[3];
+} RawTriangle;
+
+
+
 class BooleanVoxel
 {
 private:
@@ -24,9 +31,6 @@ private:
     */
     Ogre::Vector3 VertexInterp(Ogre::Vector3 p1, Ogre::Vector3 p2, bool booleanValue1 ,bool booleanValue2)
     {
-        double mu;
-        Ogre::Vector3 result;
-
         if (!booleanValue1)
             return(p1);
 
@@ -44,7 +48,7 @@ private:
 public:	
 	BooleanVoxel(Ogre::Vector3 voxelPosition, bool vertex0, bool vertex1, bool vertex2,	bool vertex3, bool vertex4, bool vertex5, bool vertex6, bool vertex7);
 	BooleanVoxel(Ogre::Vector3 voxelPosition, bool* vertexList);
-    void GetTriangle();
+    int GetTriangle(RawTriangle* triangles);
 	
 
 

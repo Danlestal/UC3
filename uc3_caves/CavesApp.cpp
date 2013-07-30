@@ -1,6 +1,7 @@
 #include "CavesApp.h"
 #include "UberCube.h"
 #include "CubeWalker.h"
+#include "MarchingCubes.h"
 
 void CavesApp::setupScene()
 {
@@ -9,8 +10,22 @@ void CavesApp::setupScene()
 
 	// Create the huge cube.
 	UberCube *cube = new UberCube();
-	CubeWalker *walker = new CubeWalker(cube, Ogre::Vector3(0,0,0),Ogre::Vector3(999,999,999),10);
+	CubeWalker *walker = new CubeWalker(cube, Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
 	walker->GenerateDensityCube();
+    
+    Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
+
+    MarchingCubes algorithm;
+    algorithm.Poligonize(cube, mesh);
+    
+
+    Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
+    entity->setMaterialName("UC3/WaterStream");
+
+    
+    Ogre::SceneNode* node = ogreManager->createSceneNode();
+    node->setPosition(0,0,0);
+    node->attachObject(entity);
 
 	/*
 	CaveGenerator *caveGenerator = new CaveGenerator(Ogre::Vector3::ZERO,
