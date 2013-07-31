@@ -77,7 +77,7 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
 	m_pCamera->setNearClipDistance(1);
  
 	m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
-    m_pViewport->setBackgroundColour(Ogre::ColourValue::White);
+    m_pViewport->setBackgroundColour(Ogre::ColourValue::Blue);
  
 	m_pCamera->setAspectRatio(Real(m_pViewport->getActualWidth()) / Real(m_pViewport->getActualHeight()));
  

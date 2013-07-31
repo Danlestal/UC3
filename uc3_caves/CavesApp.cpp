@@ -20,10 +20,10 @@ void CavesApp::setupScene()
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
-    entity->setMaterialName("UC3/WaterStream");
+    entity->setMaterialName("Ogre/Earring");
 
-    
-    Ogre::SceneNode* node = ogreManager->createSceneNode();
+    Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
+
     node->setPosition(0,0,0);
     node->attachObject(entity);
 

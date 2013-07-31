@@ -11,3 +11,4 @@ void UberCube::GetNeighbourPoints(int x, int y, int z, bool* outNeighbours)
 	outNeighbours[6] = _densityCube[x + 1][y + 1][z];
 	outNeighbours[7] = _densityCube[x][y + 1][z];
 }
+

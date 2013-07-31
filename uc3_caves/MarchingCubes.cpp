@@ -38,6 +38,11 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     /* create the vertex data structure */
     mesh->sharedVertexData = new Ogre::VertexData;
     mesh->sharedVertexData->vertexCount = numberOfTriangles * 3;
+    
+/*
+    mesh->sharedVertexData = new Ogre::VertexData;
+    mesh->sharedVertexData->vertexCount = 3;
+*/
 
     /* declare how the vertices will be represented */
     Ogre::VertexDeclaration *decl = mesh->sharedVertexData->vertexDeclaration;
@@ -52,6 +57,7 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     
     /* lock the buffer so we can get exclusive access to its data */
     float *vertices = static_cast<float *>(vertexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
+
     int bufferIndex = 0;
     for (std::vector<RawTriangle>::iterator it = trianglesVector.begin() ; it != trianglesVector.end(); ++it)
     {
@@ -85,16 +91,18 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     createIndexBuffer(Ogre::HardwareIndexBuffer::IT_16BIT, mesh->sharedVertexData->vertexCount, Ogre::HardwareBuffer::HBU_STATIC);
 
     /* lock the buffer so we can get exclusive access to its data */
-    Ogre::uint8 *indices = static_cast<Ogre::uint8 *>(indexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
+    Ogre::uint16 *indices = static_cast<Ogre::uint16 *>(indexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
 
     /* define our triangle */
-    for(int i=0; i<numberOfTriangles; ++i)
+    for(int i=0; i<numberOfTriangles*3; ++i)
     {
         indices[i] = i;
     }
 
+  
     /* unlock the buffer */
     indexBuffer->unlock();
+
 
     /* attach the buffers to the mesh */
     mesh->sharedVertexData->vertexBufferBinding->setBinding(0, vertexBuffer);
@@ -102,6 +110,9 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     subMesh->indexData->indexBuffer = indexBuffer;
     subMesh->indexData->indexCount = mesh->sharedVertexData->vertexCount;
     subMesh->indexData->indexStart = 0;
+
+/*  set the bounds of the mesh*/
+    mesh->_setBounds(Ogre::AxisAlignedBox(0, 0, 0, 100, 100, 100));
 
     /* notify the mesh that we're all ready */
     mesh->load();
