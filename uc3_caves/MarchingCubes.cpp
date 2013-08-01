@@ -6,11 +6,11 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     int numberOfTriangles = 0;
     std::vector<RawTriangle> trianglesVector;
 
-	for(int i = 0; i < UBERCUBE_SIZE -1; i++)
+	for(int i = 0; i < UBERCUBE_SIZE - 1; i++)
 	{
-		for(int j = 0; j< UBERCUBE_SIZE -1 ; j++)
+		for(int j = 0; j< UBERCUBE_SIZE - 1; j++)
 		{
-			for(int z = 0; z< UBERCUBE_SIZE -1 ; z++)
+			for(int z = 0; z< UBERCUBE_SIZE - 1; z++)
 			{
                 
                 bool neighbours[8];
@@ -112,10 +112,9 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     subMesh->indexData->indexStart = 0;
 
 /*  set the bounds of the mesh*/
-    mesh->_setBounds(Ogre::AxisAlignedBox(0, 0, 0, 100, 100, 100));
+    mesh->_setBounds(Ogre::AxisAlignedBox(0, 0, 0, UBERCUBE_SIZE, UBERCUBE_SIZE, UBERCUBE_SIZE),true);
 
     /* notify the mesh that we're all ready */
     mesh->load();
-
-        
+ 
 }

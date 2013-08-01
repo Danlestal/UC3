@@ -35,9 +35,9 @@ int CubeWalker::NormalizeCoordinate(int coordinate)
 		return 0;
 	}
 
-	if(coordinate > 99)
+	if(coordinate > UBERCUBE_SIZE -1)
 	{
-		return 99;
+		return UBERCUBE_SIZE -1;
 	}
 	
 	return coordinate;
@@ -45,7 +45,6 @@ int CubeWalker::NormalizeCoordinate(int coordinate)
 
 StepOnCube CubeWalker::GenerateRandomStep()
 {
-
 	Ogre::Vector3 generatedVector(GenerateRandomNumber(), GenerateRandomNumber(), GenerateRandomNumber());
 	
 	StepOnCube step = StepOnCube(generatedVector,1);
@@ -71,11 +70,23 @@ void CubeWalker::UpdatePosition(StepOnCube step)
 		_currentPosition.y = NormalizeCoordinate(_currentPosition.y);
 		_currentPosition.z = NormalizeCoordinate(_currentPosition.z);
 
-		_uberCube->_densityCube[(int)_currentPosition.x][(int)_currentPosition.y][(int)_currentPosition.z] = true;
+        UpdateDensityCube((int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
 	}
-
-	
 }
+
+
+void CubeWalker::UpdateDensityCube(int x, int y, int z)
+{
+    _uberCube->_densityCube[x][y][z] = false;
+    _uberCube->_densityCube[NormalizeCoordinate(x+1)][y][z] = false;
+    _uberCube->_densityCube[NormalizeCoordinate(x-1)][y][z] = false;
+    _uberCube->_densityCube[x][NormalizeCoordinate(y+1)][z] = false;
+    _uberCube->_densityCube[x][NormalizeCoordinate(y-1)][z] = false;
+    _uberCube->_densityCube[x][y][NormalizeCoordinate(z+1)] = false;
+    _uberCube->_densityCube[x][y][NormalizeCoordinate(z-1)] = false;
+
+}
+
 
 bool CubeWalker::GoalReached()
 {

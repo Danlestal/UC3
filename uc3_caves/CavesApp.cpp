@@ -6,24 +6,30 @@
 void CavesApp::setupScene()
 {
 	Ogre::SceneManager * ogreManager = OgreFramework::getSingletonPtr()->m_pSceneMgr;
-	ogreManager->createLight("Light")->setPosition(75,75,75);
+	ogreManager->createLight("Light")->setPosition(0,0,0);
 
+    Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
+    ogreManager->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 50, 500);
 	// Create the huge cube.
 	UberCube *cube = new UberCube();
-	CubeWalker *walker = new CubeWalker(cube, Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
-	walker->GenerateDensityCube();
-    
+
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
 
+    /*
+    CubeWalker *walker = new CubeWalker(cube, Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
+	walker->GenerateDensityCube();
+    */
+    
     MarchingCubes algorithm;
     algorithm.Poligonize(cube, mesh);
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
-    entity->setMaterialName("Ogre/Earring");
+    entity->setMaterialName("Ogre/Tusks");
 
     Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
 
+    node->scale(10,10,10);
     node->setPosition(0,0,0);
     node->attachObject(entity);
 

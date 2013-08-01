@@ -32,6 +32,7 @@ class CubeWalker
 
 	int GenerateRandomNumber();
 	int NormalizeCoordinate(int coordinate);
+    void UpdateDensityCube(int x, int y, int z);
 
 	public:
 
