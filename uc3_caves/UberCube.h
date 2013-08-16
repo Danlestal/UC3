@@ -2,7 +2,7 @@
 #define UberCube_HPP
  
 
-#define UBERCUBE_SIZE 20
+#define UBERCUBE_SIZE 40
 
 class UberCube
 {

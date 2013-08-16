@@ -15,17 +15,17 @@ void CavesApp::setupScene()
 
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
 
-    /*
+    
     CubeWalker *walker = new CubeWalker(cube, Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
 	walker->GenerateDensityCube();
-    */
+    
     
     MarchingCubes algorithm;
     algorithm.Poligonize(cube, mesh);
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
-    entity->setMaterialName("Ogre/Tusks");
+    entity->setMaterialName("sibenik/kuce");
 
     Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
 

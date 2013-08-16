@@ -39,10 +39,6 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     mesh->sharedVertexData = new Ogre::VertexData;
     mesh->sharedVertexData->vertexCount = numberOfTriangles * 3;
     
-/*
-    mesh->sharedVertexData = new Ogre::VertexData;
-    mesh->sharedVertexData->vertexCount = 3;
-*/
 
     /* declare how the vertices will be represented */
     Ogre::VertexDeclaration *decl = mesh->sharedVertexData->vertexDeclaration;
@@ -88,17 +84,27 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
 
     /* create the index buffer */
     Ogre::HardwareIndexBufferSharedPtr indexBuffer = Ogre::HardwareBufferManager::getSingleton().
-    createIndexBuffer(Ogre::HardwareIndexBuffer::IT_16BIT, mesh->sharedVertexData->vertexCount, Ogre::HardwareBuffer::HBU_STATIC);
+    createIndexBuffer(Ogre::HardwareIndexBuffer::IT_16BIT, numberOfTriangles * 3 * 2, Ogre::HardwareBuffer::HBU_STATIC);
 
     /* lock the buffer so we can get exclusive access to its data */
     Ogre::uint16 *indices = static_cast<Ogre::uint16 *>(indexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
 
     /* define our triangle */
-    for(int i=0; i<numberOfTriangles*3; ++i)
+    for(int i=0; i<numberOfTriangles * 3; i++)
     {
-        indices[i] = i;
+        indices[i] = i ;
     }
 
+      /* define our triangle */
+    int j = 0;
+    for(int i = numberOfTriangles * 3; i<numberOfTriangles * 3 * 2; i = i +3)
+    {
+        indices[i] = j + 2;
+        indices[i] = j + 1;
+        indices[i] = j;
+        j = j +3;
+    }
+    
   
     /* unlock the buffer */
     indexBuffer->unlock();

@@ -77,13 +77,13 @@ void CubeWalker::UpdatePosition(StepOnCube step)
 
 void CubeWalker::UpdateDensityCube(int x, int y, int z)
 {
-    _uberCube->_densityCube[x][y][z] = false;
-    _uberCube->_densityCube[NormalizeCoordinate(x+1)][y][z] = false;
-    _uberCube->_densityCube[NormalizeCoordinate(x-1)][y][z] = false;
-    _uberCube->_densityCube[x][NormalizeCoordinate(y+1)][z] = false;
-    _uberCube->_densityCube[x][NormalizeCoordinate(y-1)][z] = false;
-    _uberCube->_densityCube[x][y][NormalizeCoordinate(z+1)] = false;
-    _uberCube->_densityCube[x][y][NormalizeCoordinate(z-1)] = false;
+    _uberCube->_densityCube[x][y][z] = true;
+    _uberCube->_densityCube[NormalizeCoordinate(x+1)][y][z] = true;
+    _uberCube->_densityCube[NormalizeCoordinate(x-1)][y][z] = true;
+    _uberCube->_densityCube[x][NormalizeCoordinate(y+1)][z] = true;
+    _uberCube->_densityCube[x][NormalizeCoordinate(y-1)][z] = true;
+    _uberCube->_densityCube[x][y][NormalizeCoordinate(z+1)] = true;
+    _uberCube->_densityCube[x][y][NormalizeCoordinate(z-1)] = true;
 
 }
 
