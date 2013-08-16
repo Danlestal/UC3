@@ -71,9 +71,11 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
 	
 	
 	m_pSceneMgr->setAmbientLight(Ogre::ColourValue(0.7f, 0.7f, 0.7f));
+
+	m_cameraNode = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("CameraNode");
+	m_cameraNode->setPosition(Vector3(0, 60, 60));
+
 	m_pCamera = m_pSceneMgr->createCamera("Camera");
-	m_pCamera->setPosition(Vector3(0, 60, 60));
-	m_pCamera->lookAt(Vector3(0, 0, 0));
 	m_pCamera->setNearClipDistance(1);
  
 	m_pViewport = m_pRenderWnd->addViewport(m_pCamera);
@@ -83,6 +85,8 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, Ogre::SceneType sceneType, O
  
 	m_pViewport->setCamera(m_pCamera);
  
+	m_cameraNode->attachObject(m_pCamera);
+
 	size_t hWnd = 0;
 	m_pRenderWnd->getCustomAttribute("WINDOW", &hWnd);
 	m_pInputMgr = OIS::InputManager::createInputSystem(hWnd);
@@ -227,8 +231,8 @@ bool OgreFramework::keyReleased(const OIS::KeyEvent &keyEventRef)
 /// <returns></returns>
 bool OgreFramework::mouseMoved(const OIS::MouseEvent &evt)
 {
-	m_pCamera->yaw(Degree(evt.state.X.rel * -0.1f));
-	m_pCamera->pitch(Degree(evt.state.Y.rel * -0.1f));
+	m_cameraNode->yaw(Degree(evt.state.X.rel * -0.1f));
+	m_cameraNode->pitch(Degree(evt.state.Y.rel * -0.1f));
  
 	return true;
 }
@@ -280,9 +284,13 @@ void OgreFramework::updateOgre(double timeSinceLastFrame)
 void OgreFramework::moveCamera()
 {
 	if(m_pKeyboard->isKeyDown(OIS::KC_LSHIFT)) 
-		m_pCamera->moveRelative(m_TranslateVector);
+	{
+		m_cameraNode->translate(m_cameraNode->getOrientation() * m_TranslateVector);
+	}
 	else
-		m_pCamera->moveRelative(m_TranslateVector / 10);
+	{
+		m_cameraNode->translate(m_cameraNode->getOrientation() * (m_TranslateVector / 10));
+	}
 }
 
 /// <summary>

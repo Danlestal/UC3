@@ -8,8 +8,25 @@ void CavesApp::setupScene()
 	Ogre::SceneManager * ogreManager = OgreFramework::getSingletonPtr()->m_pSceneMgr;
 	ogreManager->createLight("Light")->setPosition(0,0,0);
 
-    Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
-    ogreManager->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 50, 500);
+    Ogre::ColourValue fadeColour(0.6, 0.6, 0.9);
+    ogreManager->setFog(Ogre::FOG_LINEAR, fadeColour, 5.0, 20, 500);
+
+	Ogre::SceneNode *cameraNode = OgreFramework::getSingletonPtr()->m_cameraNode;
+	
+	Ogre::Light* pointLight = ogreManager->createLight("pointLight");
+	pointLight->setCastShadows(true);
+	pointLight->setPowerScale(100);
+
+    pointLight->setType(Ogre::Light::LT_POINT);
+	pointLight->setDiffuseColour(1.0, 0.0, 0.0);
+    pointLight->setSpecularColour(1.0, 0.0, 0.0);
+  
+
+	cameraNode->attachObject(pointLight);
+
+
+
+	
 	// Create the huge cube.
 	UberCube *cube = new UberCube();
 
@@ -25,13 +42,15 @@ void CavesApp::setupScene()
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
-    entity->setMaterialName("sibenik/kuce");
+    entity->setMaterialName("UC3/Basic");
+	entity->setCastShadows(true);
 
     Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
 
-    node->scale(10,10,10);
+ 
     node->setPosition(0,0,0);
     node->attachObject(entity);
+	node->scale(20,20,20);
 
 	/*
 	CaveGenerator *caveGenerator = new CaveGenerator(Ogre::Vector3::ZERO,
