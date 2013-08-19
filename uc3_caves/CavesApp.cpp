@@ -16,6 +16,7 @@ void CavesApp::setupScene()
 	Ogre::Light* pointLight = ogreManager->createLight("pointLight");
 	pointLight->setCastShadows(true);
 	pointLight->setPowerScale(100);
+	
 
     pointLight->setType(Ogre::Light::LT_POINT);
 	pointLight->setDiffuseColour(1.0, 0.0, 0.0);

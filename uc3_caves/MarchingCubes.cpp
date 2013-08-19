@@ -26,7 +26,6 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
                 }
 
                 numberOfTriangles += voxelTriangles;
-                
 			}
 		}
 	}
@@ -84,10 +83,10 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
 
     /* create the index buffer */
     Ogre::HardwareIndexBufferSharedPtr indexBuffer = Ogre::HardwareBufferManager::getSingleton().
-    createIndexBuffer(Ogre::HardwareIndexBuffer::IT_16BIT, numberOfTriangles * 3 * 2, Ogre::HardwareBuffer::HBU_STATIC);
+		createIndexBuffer(Ogre::HardwareIndexBuffer::IT_32BIT, numberOfTriangles * 3 * 2, Ogre::HardwareBuffer::HBU_STATIC);
 
     /* lock the buffer so we can get exclusive access to its data */
-    Ogre::uint16 *indices = static_cast<Ogre::uint16 *>(indexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
+    Ogre::uint32 *indices = static_cast<Ogre::uint32 *>(indexBuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL));
 
     /* define our triangle */
     for(int i=0; i<numberOfTriangles * 3; i++)
