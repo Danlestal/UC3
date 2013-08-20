@@ -6,16 +6,16 @@ void CubeWalker::GenerateDensityCube()
 	{
 		UpdatePosition(GenerateRandomStep());
 	}
-
 }
 
-CubeWalker::CubeWalker(UberCube* uberCube, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance)
+CubeWalker::CubeWalker(UberCube* uberCube, DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance)
 {
 	_uberCube = uberCube;
 	_source = source;
 	_currentPosition = source;
 	_destination = destination;
 	_goalDistance = goalDistance;
+    _brush = brush;
 }
 
 int CubeWalker::GenerateRandomNumber()
@@ -26,21 +26,6 @@ int CubeWalker::GenerateRandomNumber()
 
       boost::variate_generator< boost::mt19937, boost::uniform_int<> > dice(_rng, distribution);
 	  return dice();
-}
-
-int CubeWalker::NormalizeCoordinate(int coordinate)
-{
-	if(coordinate < 0)
-	{
-		return 0;
-	}
-
-	if(coordinate > UBERCUBE_SIZE -1)
-	{
-		return UBERCUBE_SIZE -1;
-	}
-	
-	return coordinate;
 }
 
 StepOnCube CubeWalker::GenerateRandomStep()
@@ -66,27 +51,13 @@ void CubeWalker::UpdatePosition(StepOnCube step)
 	{
 		_currentPosition += step.direction;
 		
-		_currentPosition.x = NormalizeCoordinate(_currentPosition.x);
-		_currentPosition.y = NormalizeCoordinate(_currentPosition.y);
-		_currentPosition.z = NormalizeCoordinate(_currentPosition.z);
+		_currentPosition.x = _uberCube->NormalizeCoordinate(_currentPosition.x);
+		_currentPosition.y = _uberCube->NormalizeCoordinate(_currentPosition.y);
+		_currentPosition.z = _uberCube->NormalizeCoordinate(_currentPosition.z);
 
-        UpdateDensityCube((int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
+        _brush->UpdateDensityCube(_uberCube, (int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
 	}
 }
-
-
-void CubeWalker::UpdateDensityCube(int x, int y, int z)
-{
-    _uberCube->_densityCube[x][y][z] = true;
-    _uberCube->_densityCube[NormalizeCoordinate(x+1)][y][z] = true;
-    _uberCube->_densityCube[NormalizeCoordinate(x-1)][y][z] = true;
-    _uberCube->_densityCube[x][NormalizeCoordinate(y+1)][z] = true;
-    _uberCube->_densityCube[x][NormalizeCoordinate(y-1)][z] = true;
-    _uberCube->_densityCube[x][y][NormalizeCoordinate(z+1)] = true;
-    _uberCube->_densityCube[x][y][NormalizeCoordinate(z-1)] = true;
-
-}
-
 
 bool CubeWalker::GoalReached()
 {

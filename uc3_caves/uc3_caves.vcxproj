@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -28,6 +36,12 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -46,16 +60,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\programacion\juegos\UC3\uc3;$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Volume\include;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\dromero\Documents\GitHub\UC3\uc3\;$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Volume\include;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\programacion\juegos\ogre_src_v1-9-0-build\Bin\Debug;$(OGRE_BUILD_HOME)\lib\$(Configuration);$(OGRE_SOURCE_HOME)\Dependencies\$(Configuration);C:\programacion\juegos\ogre_src_v1-9-0-build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Users\dromero\Documents\GitHub\UC3\Debug;$(OGRE_BUILD_HOME)\Bin\Debug;$(OGRE_BUILD_HOME)\lib\$(Configuration);$(OGRE_SOURCE_HOME)\Dependencies\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;zziplib_d.lib;zlib_d.lib;OgreOverlay_d.lib;uc3.lib;OgreVolume_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_BUILD_HOME)\Bin\$(Configuration)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,6 +95,16 @@
       <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OGRE_BUILD_HOME)\Bin\Debug;$(OGRE_BUILD_HOME)\lib\$(Configuration);$(OGRE_SOURCE_HOME)\Dependencies\lib\$(Configuration);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;zziplib_d.lib;zlib_d.lib;OgreOverlay_d.lib;uc3.lib;OgreVolume_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BooleanVoxel.cpp" />
     <ClCompile Include="CaveGenerator.cpp" />
@@ -89,15 +113,18 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MarchingCubes.cpp" />
     <ClCompile Include="PseudoRandomWalker.cpp" />
+    <ClCompile Include="SquareDensityBrush.cpp" />
     <ClCompile Include="UberCube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CaveGenerator.h" />
     <ClInclude Include="CavesApp.h" />
     <ClInclude Include="CubeWalker.h" />
+    <ClInclude Include="DensityCubeBrush.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesTable.h" />
     <ClInclude Include="PseudoRandomWalker.h" />
+    <ClInclude Include="SquareDensityBrush.h" />
     <ClInclude Include="UberCube.h" />
     <ClInclude Include="BooleanVoxel.h" />
   </ItemGroup>

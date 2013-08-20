@@ -12,6 +12,23 @@ void UberCube::GetNeighbourPoints(int x, int y, int z, bool* outNeighbours)
 	outNeighbours[7] = _densityCube[x][y + 1][z];
 }
 
+
+int UberCube::NormalizeCoordinate(int coordinate)
+{
+	if(coordinate < 1)
+	{
+		return 1;
+	}
+
+	if(coordinate > UBERCUBE_SIZE -1)
+	{
+		return UBERCUBE_SIZE -1;
+	}
+	
+	return coordinate;
+}
+
+
 UberCube::UberCube()
 {
 
@@ -21,16 +38,6 @@ UberCube::UberCube()
         {
             for(int k=0;k<UBERCUBE_SIZE;++k)
             {
-                /*
-                if( (i == 0) || (i == UBERCUBE_SIZE-1) || (j == 0) || (j == UBERCUBE_SIZE-1) || (k == 0) || (k == UBERCUBE_SIZE-1))
-                {
-                    _densityCube[i][j][k] = false;
-                }
-                else
-                {
-                    _densityCube[i][j][k] = true;
-                }
-                */
                 _densityCube[i][j][k] = false;
             }
         }

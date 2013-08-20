@@ -1,3 +1,99 @@
+fragment_program TextureModColor_PS cg
+{
+    source GameObjStandard.cg
+ 
+    // Different entry point for pixel shader
+    entry_point main_tex_mod_col_fp
+ 
+    profiles ps_1_1
+ 
+    default_params
+    {
+        // Specify a default value for a new parameter
+        // Note that we don't need to specify whether it's a pixel of vertex shader parameter
+        param_named colorModulate float4 1 0 0 0.5        
+    }
+}
+ 
+material TextureModColor
+{
+    technique
+    {
+        pass
+        {
+            // Makes the pixel shader alpha output be used for alpha blending
+            scene_blend alpha_blend            
+ 
+            vertex_program_ref PlainTexture_VS
+            {
+            }
+            fragment_program_ref TextureModColor_PS
+            {
+            }
+            texture_unit
+            {
+                texture floor_ao.PNG 2d
+            }
+        }
+    }
+}
+
+// CG Vertex shader definition
+vertex_program PlainTexture_VS cg            
+{
+	// Look in this source file for shader code
+    source GameObjStandard.cg
+	// Use this function for the vertex shader            
+    entry_point main_plain_texture_vp    
+	
+	// Compile the shader to vs_1_1 format    
+    profiles vs_1_1                    
+ 
+    // This block saves us from manually setting parameters in code
+        default_params                    
+    {
+                // Ogre will put the worldviewproj into our 'worldViewProj' parameter for us.
+        param_named_auto worldViewProj worldviewproj_matrix        
+                // Note that 'worldViewProj' is a parameter in the cg code.
+    }
+}
+ 
+// CG Pixel shader definition
+fragment_program PlainTexture_PS cg            
+{
+        // Look in this source file for shader code
+    source GameObjStandard.cg        
+        // Use this function for the pixel shader    
+    entry_point main_plain_texture_fp    
+        // Compile to ps_1_1 format    
+    profiles ps_1_1                    
+}
+ 
+material PlainTexture
+{
+        // Material has one technique
+    technique                    
+    {
+                // This technique has one pass
+        pass                    
+        {
+                        // Make this pass use the vertex shader defined above
+            vertex_program_ref PlainTexture_VS    
+            {
+            }
+                        // Make this pass use the pixel shader defined above
+            fragment_program_ref PlainTexture_PS    
+            {
+            }
+            texture_unit
+            {
+                                // This pass will use this 2D texture as its input
+                texture floor_ao.PNG 2d        
+            }
+        }
+    }
+}
+
 material UC3/Basic
 {
 	technique
