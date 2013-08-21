@@ -38,6 +38,21 @@ material TextureModColor
     }
 }
 
+material UC3/RockWall
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture BeachStones.jpg
+			}
+		}
+	}
+}
+
+
 // CG Vertex shader definition
 vertex_program PlainTexture_VS cg            
 {

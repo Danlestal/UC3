@@ -46,6 +46,10 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     /* the first three floats of each vertex represent the position */
     decl->addElement(0, offset, Ogre::VET_FLOAT3, Ogre::VES_POSITION);
     offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT3);
+    decl->addElement(0, offset, Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES);
+    offset += Ogre::VertexElement::getTypeSize(Ogre::VET_FLOAT2);
+
+   
 
     /* create the vertex buffer */
     Ogre::HardwareVertexBufferSharedPtr vertexBuffer = Ogre::HardwareBufferManager::getSingleton().createVertexBuffer(offset, mesh->sharedVertexData->vertexCount, Ogre::HardwareBuffer::HBU_STATIC);
@@ -63,6 +67,12 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         bufferIndex++;
         vertices[bufferIndex] = it->p[0].z;
         bufferIndex++;
+        // First Texture UV
+        vertices[bufferIndex] = it->p[0].x;
+        bufferIndex++;
+        vertices[bufferIndex] = it->p[0].z;
+        bufferIndex++;
+
 
         // Second point
         vertices[bufferIndex] = it->p[1].x;
@@ -71,6 +81,13 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         bufferIndex++;
         vertices[bufferIndex] = it->p[1].z;
         bufferIndex++;
+        // Second Texture UV
+        vertices[bufferIndex] = it->p[1].x;
+        bufferIndex++;
+        vertices[bufferIndex] = it->p[1].z;
+        bufferIndex++;
+
+
         // Third point
         vertices[bufferIndex] = it->p[2].x;
         bufferIndex++;
@@ -78,6 +95,13 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         bufferIndex++;
         vertices[bufferIndex] = it->p[2].z;
         bufferIndex++;
+
+        // Third Texture UV
+        vertices[bufferIndex] = it->p[2].x;
+        bufferIndex++;
+        vertices[bufferIndex] = it->p[2].z;
+        bufferIndex++;
+
     }
     vertexBuffer->unlock();
 
@@ -111,6 +135,7 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
 
     /* attach the buffers to the mesh */
     mesh->sharedVertexData->vertexBufferBinding->setBinding(0, vertexBuffer);
+    
     subMesh->useSharedVertices = true;
     subMesh->indexData->indexBuffer = indexBuffer;
     subMesh->indexData->indexCount = mesh->sharedVertexData->vertexCount;
