@@ -68,9 +68,9 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         vertices[bufferIndex] = it->p[0].z;
         bufferIndex++;
         // First Texture UV
-        vertices[bufferIndex] = it->p[0].x;
+        vertices[bufferIndex] = 0;
         bufferIndex++;
-        vertices[bufferIndex] = it->p[0].z;
+        vertices[bufferIndex] = 0;
         bufferIndex++;
 
 
@@ -82,9 +82,9 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         vertices[bufferIndex] = it->p[1].z;
         bufferIndex++;
         // Second Texture UV
-        vertices[bufferIndex] = it->p[1].x;
+        vertices[bufferIndex] = 0;
         bufferIndex++;
-        vertices[bufferIndex] = it->p[1].z;
+        vertices[bufferIndex] = 1;
         bufferIndex++;
 
 
@@ -97,9 +97,9 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
         bufferIndex++;
 
         // Third Texture UV
-        vertices[bufferIndex] = it->p[2].x;
+        vertices[bufferIndex] = 1;
         bufferIndex++;
-        vertices[bufferIndex] = it->p[2].z;
+        vertices[bufferIndex] = 1;
         bufferIndex++;
 
     }

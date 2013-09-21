@@ -31,7 +31,6 @@ int UberCube::NormalizeCoordinate(int coordinate)
 
 UberCube::UberCube()
 {
-
     for(int i=0;i<UBERCUBE_SIZE;++i)
     {
         for(int j=0;j<UBERCUBE_SIZE;++j)

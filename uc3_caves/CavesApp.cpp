@@ -3,6 +3,7 @@
 #include "CubeWalker.h"
 #include "MarchingCubes.h"
 #include "SquareDensityBrush.h"
+#include "CubePolisher.h"
 
 void CavesApp::setupScene()
 {
@@ -40,14 +41,15 @@ void CavesApp::setupScene()
 	
 	// Create the huge cube.
 	UberCube *cube = new UberCube();
+    CubeWalker walker = CubeWalker(new SquareDensityCubeBrush(12), Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
+	walker.GenerateDensityCube(cube);
+    
+    CubePolisher polisher;
+    polisher.PolishCube(cube);
+    polisher.PolishCube(cube);
+    polisher.PolishCube(cube);
 
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
-
-    
-    CubeWalker *walker = new CubeWalker(cube, new SquareDensityCubeBrush(3), Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
-	walker->GenerateDensityCube();
-    
-    
     MarchingCubes algorithm;
     algorithm.Poligonize(cube, mesh);
     
@@ -62,7 +64,7 @@ void CavesApp::setupScene()
  
     node->setPosition(0,0,0);
     node->attachObject(entity);
-	node->scale(20,20,20);
+	node->scale(6,6,6);
 }
 
 

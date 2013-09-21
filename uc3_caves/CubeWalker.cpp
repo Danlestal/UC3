@@ -1,16 +1,15 @@
 #include "CubeWalker.h"
 
-void CubeWalker::GenerateDensityCube()
+void CubeWalker::GenerateDensityCube(UberCube* uberCube)
 {
 	while(!GoalReached())
 	{
-		UpdatePosition(GenerateRandomStep());
+		UpdatePosition(uberCube, GenerateRandomStep());
 	}
 }
 
-CubeWalker::CubeWalker(UberCube* uberCube, DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance)
+CubeWalker::CubeWalker(DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance)
 {
-	_uberCube = uberCube;
 	_source = source;
 	_currentPosition = source;
 	_destination = destination;
@@ -45,17 +44,17 @@ StepOnCube CubeWalker::GenerateRandomStep()
 	return step;
 }
 
-void CubeWalker::UpdatePosition(StepOnCube step)
+void CubeWalker::UpdatePosition(UberCube* uberCube, StepOnCube step)
 {
 	for(int i = 0 ;i<step.jump; i++)
 	{
 		_currentPosition += step.direction;
 		
-		_currentPosition.x = _uberCube->NormalizeCoordinate(_currentPosition.x);
-		_currentPosition.y = _uberCube->NormalizeCoordinate(_currentPosition.y);
-		_currentPosition.z = _uberCube->NormalizeCoordinate(_currentPosition.z);
+		_currentPosition.x = uberCube->NormalizeCoordinate(_currentPosition.x);
+		_currentPosition.y = uberCube->NormalizeCoordinate(_currentPosition.y);
+		_currentPosition.z = uberCube->NormalizeCoordinate(_currentPosition.z);
 
-        _brush->UpdateDensityCube(_uberCube, (int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
+        _brush->UpdateDensityCube(uberCube, (int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
 	}
 }
 

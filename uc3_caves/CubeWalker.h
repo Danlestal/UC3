@@ -23,7 +23,6 @@ struct StepOnCube
 class CubeWalker
 {
 	private:	
-	    UberCube *_uberCube;
 	    Ogre::Vector3 _source;
 	    Ogre::Vector3 _currentPosition;
 	    Ogre::Vector3 _destination;
@@ -35,13 +34,13 @@ class CubeWalker
         void UpdateDensityCube(int x, int y, int z);
 
 	public:
-		CubeWalker(UberCube* _uberCube, DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance);
+		CubeWalker(DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance);
 		void SetGoalDistance(int distance);
 		bool GoalReached();
 		StepOnCube GenerateRandomStep();
 		UberCube* GetDensityCube();
-		void UpdatePosition(StepOnCube step);
-		void GenerateDensityCube();
+		void UpdatePosition(UberCube* uberCube, StepOnCube step);
+		void GenerateDensityCube(UberCube* uberCube);
 };
 
 #endif 
