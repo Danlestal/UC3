@@ -6,6 +6,7 @@
 #include "boost/generator_iterator.hpp"
 #include "UberCube.h"
 #include "DensityCubeBrush.h"
+#include "IDensityCubeGenerator.h"
 
 
 struct StepOnCube
@@ -20,27 +21,23 @@ struct StepOnCube
 	}
 };
 
-class CubeWalker
+class CubeWalker : public IDensityCubeGenerator
 {
 	private:	
-	    Ogre::Vector3 _source;
-	    Ogre::Vector3 _currentPosition;
-	    Ogre::Vector3 _destination;
-        DensityCubeBrush *_brush;
-	    int _goalDistance;
+        DensityCubeBrush *mBrush;
+	    int mGoalDistance;
 	    boost::mt19937 _rng;
 
 	    int GenerateRandomNumber();
         void UpdateDensityCube(int x, int y, int z);
 
 	public:
-		CubeWalker(DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance);
+		CubeWalker(DensityCubeBrush* brush, int goalDistance);
 		void SetGoalDistance(int distance);
-		bool GoalReached();
-		StepOnCube GenerateRandomStep();
+		StepOnCube GenerateRandomStep(Ogre::Vector3 currentPosition, Ogre::Vector3 destination);
 		UberCube* GetDensityCube();
-		void UpdatePosition(UberCube* uberCube, StepOnCube step);
-		void GenerateDensityCube(UberCube* uberCube);
+		Ogre::Vector3 UpdatePosition(UberCube* uberCube, Ogre::Vector3 currentPosition, StepOnCube step);
+		void GenerateDensityCube(UberCube* uberCube, Ogre::Vector3 source, Ogre::Vector3 destination);
 };
 
 #endif 

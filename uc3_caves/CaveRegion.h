@@ -5,17 +5,20 @@
 
 class CaveRegion
 {
-    private:
+    protected:
         UberCube *mCube;
         int mGlobalPosX;
         int mGlobalPosY;
         int mGlobalPosZ;
+
+        CaveRegion(){}
     
     public:
-        CaveRegion(int globalPosX, int globalPosY,int globalPosZ, UberCube *mCube);
+        CaveRegion(int globalPosX, int globalPosY,int globalPosZ, UberCube *cube);
 
         int GetGlobalPosX();
         int GetGlobalPosY();
         int GetGlobalPosZ();
+        UberCube* GetDensityCube();
 };
 #endif

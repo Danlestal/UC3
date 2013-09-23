@@ -107,26 +107,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BooleanVoxel.cpp" />
-    <ClCompile Include="CaveGenerator.cpp" />
+    <ClCompile Include="CaveRegion.cpp" />
+    <ClCompile Include="CaveRegionGenerator.cpp" />
     <ClCompile Include="CavesApp.cpp" />
+    <ClCompile Include="CubePolisher.cpp" />
     <ClCompile Include="CubeWalker.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MarchingCubes.cpp" />
     <ClCompile Include="PseudoRandomWalker.cpp" />
     <ClCompile Include="SquareDensityBrush.cpp" />
+    <ClCompile Include="StandardCubeSmoother.cpp" />
     <ClCompile Include="UberCube.cpp" />
+    <ClCompile Include="UIDGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CaveGenerator.h" />
+    <ClInclude Include="CaveGenerationManager.h" />
+    <ClInclude Include="CaveRegion.h" />
+    <ClInclude Include="CaveRegionGenerator.h" />
+    <ClInclude Include="CaveRegionStorage.h" />
     <ClInclude Include="CavesApp.h" />
+    <ClInclude Include="CubePolisher.h" />
+    <ClInclude Include="CubeSinusWalker.h" />
     <ClInclude Include="CubeWalker.h" />
     <ClInclude Include="DensityCubeBrush.h" />
+    <ClInclude Include="ICubeSmoother.h" />
+    <ClInclude Include="IDensityCubeGenerator.h" />
     <ClInclude Include="MarchingCubes.h" />
     <ClInclude Include="MarchingCubesTable.h" />
     <ClInclude Include="PseudoRandomWalker.h" />
     <ClInclude Include="SquareDensityBrush.h" />
+    <ClInclude Include="StandardCubeSmoother.h" />
     <ClInclude Include="UberCube.h" />
     <ClInclude Include="BooleanVoxel.h" />
+    <ClInclude Include="UIDGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="BacteriaWalk.txt" />

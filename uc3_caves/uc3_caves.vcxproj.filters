@@ -24,9 +24,6 @@
     <ClCompile Include="PseudoRandomWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CaveGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CubeWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,15 +39,27 @@
     <ClCompile Include="SquareDensityBrush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CubePolisher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CaveRegionGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CaveRegion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardCubeSmoother.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CavesApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PseudoRandomWalker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CaveGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UberCube.h">
@@ -72,6 +81,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SquareDensityBrush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubePolisher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CaveGenerationManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CaveRegionGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CaveRegionStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CaveRegion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IDensityCubeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeSinusWalker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICubeSmoother.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardCubeSmoother.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

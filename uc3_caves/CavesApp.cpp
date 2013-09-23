@@ -4,6 +4,11 @@
 #include "MarchingCubes.h"
 #include "SquareDensityBrush.h"
 #include "CubePolisher.h"
+#include "CaveRegion.h"
+
+#include "CaveRegionGenerator.h"
+#include "ICubeSmoother.h"
+#include "StandardCubeSmoother.h"
 
 void CavesApp::setupScene()
 {
@@ -20,16 +25,16 @@ void CavesApp::setupScene()
     
 	Ogre::SceneNode *cameraNode = OgreFramework::getSingletonPtr()->m_cameraNode;
 
-
+/*
     Ogre::Light* pointLight = ogreManager->createLight("pointLight");
     pointLight->setType(Ogre::Light::LT_POINT);
     pointLight->setDiffuseColour(1.0, 0.0, 0.0);
     pointLight->setSpecularColour(1.0, 0.0, 0.0);
     pointLight->setCastShadows(true);
     cameraNode->attachObject(pointLight);
+    */
 
-
-    /*
+    
 	Ogre::Light* spotLight = ogreManager->createLight("spotLight");
     spotLight->setType(Ogre::Light::LT_SPOTLIGHT);
     spotLight->setDiffuseColour(1.0, 0, 0);
@@ -37,21 +42,14 @@ void CavesApp::setupScene()
     spotLight->setSpotlightRange(Ogre::Degree(35), Ogre::Degree(50));
     spotLight->setCastShadows(true);
     cameraNode->attachObject(spotLight);
-    */
-	
-	// Create the huge cube.
-	UberCube *cube = new UberCube();
-    CubeWalker walker = CubeWalker(new SquareDensityCubeBrush(12), Ogre::Vector3(0,0,0),Ogre::Vector3(UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1,UBERCUBE_SIZE - 1),2);
-	walker.GenerateDensityCube(cube);
     
-    CubePolisher polisher;
-    polisher.PolishCube(cube);
-    polisher.PolishCube(cube);
-    polisher.PolishCube(cube);
+	
+    CaveRegionGenerator generator = CaveRegionGenerator(new CubeWalker(new SquareDensityCubeBrush(10), 10), new StandardCubeSmoother(2));
+    CaveRegion* region = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE));
 
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
     MarchingCubes algorithm;
-    algorithm.Poligonize(cube, mesh);
+    algorithm.Poligonize(region->GetDensityCube(), mesh);
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");

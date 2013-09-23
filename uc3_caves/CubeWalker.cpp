@@ -1,20 +1,17 @@
 #include "CubeWalker.h"
 
-void CubeWalker::GenerateDensityCube(UberCube* uberCube)
+void CubeWalker::GenerateDensityCube(UberCube* uberCube, Ogre::Vector3 source, Ogre::Vector3 destination)
 {
-	while(!GoalReached())
+    Ogre::Vector3 currentPosition = source;
+
+	while(! (currentPosition.distance(destination) < mGoalDistance))
 	{
-		UpdatePosition(uberCube, GenerateRandomStep());
+		currentPosition = UpdatePosition(uberCube, currentPosition, GenerateRandomStep(currentPosition, destination));
 	}
 }
 
-CubeWalker::CubeWalker(DensityCubeBrush* brush, Ogre::Vector3 source, Ogre::Vector3 destination, int goalDistance)
+CubeWalker::CubeWalker(DensityCubeBrush* brush, int goalDistance) : mBrush(brush), mGoalDistance(goalDistance)
 {
-	_source = source;
-	_currentPosition = source;
-	_destination = destination;
-	_goalDistance = goalDistance;
-    _brush = brush;
 }
 
 int CubeWalker::GenerateRandomNumber()
@@ -27,38 +24,42 @@ int CubeWalker::GenerateRandomNumber()
 	  return dice();
 }
 
-StepOnCube CubeWalker::GenerateRandomStep()
+StepOnCube CubeWalker::GenerateRandomStep(Ogre::Vector3 currentPosition, Ogre::Vector3 destination)
 {
 	Ogre::Vector3 generatedVector(GenerateRandomNumber(), GenerateRandomNumber(), GenerateRandomNumber());
 	
-	StepOnCube step = StepOnCube(generatedVector,1);
+	StepOnCube step = StepOnCube(generatedVector,0);
 
- 	Ogre::Vector3 desiredDirection = _destination - _currentPosition;
+ 	Ogre::Vector3 desiredDirection = destination - currentPosition;
 	desiredDirection.normalise();
 
-    if(generatedVector.directionEquals(desiredDirection, Ogre::Radian( 0.20F)))
+    if(generatedVector.directionEquals(desiredDirection, Ogre::Radian(1.00F)))
 	{
-		step.jump = 2;
+		step.jump = 3;
 	}
 
 	return step;
 }
 
-void CubeWalker::UpdatePosition(UberCube* uberCube, StepOnCube step)
+Ogre::Vector3 CubeWalker::UpdatePosition(UberCube* uberCube, Ogre::Vector3 currentPosition, StepOnCube step)
 {
-	for(int i = 0 ;i<step.jump; i++)
-	{
-		_currentPosition += step.direction;
+    if(step.jump!=0)
+    {
+        Ogre::Vector3 newPosition;
+
+	    for(int i = 0 ;i<step.jump; i++)
+	    {
+		    newPosition =  currentPosition + step.direction;
 		
-		_currentPosition.x = uberCube->NormalizeCoordinate(_currentPosition.x);
-		_currentPosition.y = uberCube->NormalizeCoordinate(_currentPosition.y);
-		_currentPosition.z = uberCube->NormalizeCoordinate(_currentPosition.z);
+		    newPosition.x = uberCube->NormalizeCoordinate(newPosition.x);
+		    newPosition.y = uberCube->NormalizeCoordinate(newPosition.y);
+		    newPosition.z = uberCube->NormalizeCoordinate(newPosition.z);
 
-        _brush->UpdateDensityCube(uberCube, (int)_currentPosition.x, (int)_currentPosition.y, (int)_currentPosition.z);
-	}
-}
+            mBrush->UpdateDensityCube(uberCube, (int)newPosition.x, (int)newPosition.y, (int)newPosition.z);
+	    }
 
-bool CubeWalker::GoalReached()
-{
-	return (_currentPosition.distance(_destination) < _goalDistance);
+        return newPosition;
+    }
+
+    return currentPosition;
 }
