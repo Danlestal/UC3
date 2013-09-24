@@ -12,9 +12,12 @@ class CaveRegion
         int mGlobalPosZ;
 
         CaveRegion(){}
+
     
     public:
         CaveRegion(int globalPosX, int globalPosY,int globalPosZ, UberCube *cube);
+        ~CaveRegion();
+        
 
         int GetGlobalPosX();
         int GetGlobalPosY();

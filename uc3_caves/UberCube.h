@@ -6,8 +6,10 @@
 class UberCube
 {
 	public:
-        bool _densityCube[UBERCUBE_SIZE][UBERCUBE_SIZE][UBERCUBE_SIZE];
+        bool mDensityCube[UBERCUBE_SIZE][UBERCUBE_SIZE][UBERCUBE_SIZE];
         UberCube();
+        ~UberCube();
+
         int NormalizeCoordinate(int coordinate);
         void GetNeighbourPoints(int x, int y, int z, bool* outNeighbours);
 };

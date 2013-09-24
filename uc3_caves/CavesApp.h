@@ -4,26 +4,26 @@
 #include "OgreFramework.h"
 #include "BasicApp.h"
 #include "PerlinNoiseGenerator.h"
-#include "PseudoRandomWalker.h"
+
+#include "CaveRegion.h"
+#include "DensityCubeBrush.h"
+#include "SquareDensityBrush.h"
+#include "StandardCubeSmoother.h"
+#include "CubeWalker.h"
  
 class CavesApp : public BasicApp
 {
 	private:
-		Ogre::SceneNode *_cubeNode;
-		Ogre::SceneNode *_randomWalkerNode;
-		Ogre::SceneNode *_goal;
-		PseudoRandomWalker *_walker;
-		Ogre::Vector3 _sourcePosition;
-		Ogre::Vector3 _destinationPosition;
-
-		/// Holds the volume root.
-		// Ogre::Volume::Chunk *_caveChunkHole;
-		// Ogre::Volume::CSGUnionSource *_unionBuffer;
-
-		Ogre::Volume::Chunk* caveChunk;
-
-		virtual void setupScene();
-	public:
+		
+        CaveRegion* mRegion;
+        SquareDensityCubeBrush *mBrush;
+        CubeWalker *mWalker;
+        StandardCubeSmoother *mSmoother;
+        
+        virtual void setupScene();
+        virtual void cleanScene();
+	
+     public:
 		virtual void updateLogic();
 };
 

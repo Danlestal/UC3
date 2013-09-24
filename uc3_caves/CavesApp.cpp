@@ -13,8 +13,6 @@
 void CavesApp::setupScene()
 {
 	Ogre::SceneManager *ogreManager = OgreFramework::getSingletonPtr()->m_pSceneMgr;
-
-    
     ogreManager->setAmbientLight(Ogre::ColourValue(0.3, 0.3, 0.3));
     ogreManager->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
 
@@ -24,16 +22,6 @@ void CavesApp::setupScene()
     
     
 	Ogre::SceneNode *cameraNode = OgreFramework::getSingletonPtr()->m_cameraNode;
-
-/*
-    Ogre::Light* pointLight = ogreManager->createLight("pointLight");
-    pointLight->setType(Ogre::Light::LT_POINT);
-    pointLight->setDiffuseColour(1.0, 0.0, 0.0);
-    pointLight->setSpecularColour(1.0, 0.0, 0.0);
-    pointLight->setCastShadows(true);
-    cameraNode->attachObject(pointLight);
-    */
-
     
 	Ogre::Light* spotLight = ogreManager->createLight("spotLight");
     spotLight->setType(Ogre::Light::LT_SPOTLIGHT);
@@ -43,13 +31,19 @@ void CavesApp::setupScene()
     spotLight->setCastShadows(true);
     cameraNode->attachObject(spotLight);
     
-	
-    CaveRegionGenerator generator = CaveRegionGenerator(new CubeWalker(new SquareDensityCubeBrush(10), 10), new StandardCubeSmoother(2));
-    CaveRegion* region = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE));
 
+    // All the cave generation stuff.
+    mBrush = new SquareDensityCubeBrush(10);
+    mWalker = new CubeWalker(mBrush, 10);
+    mSmoother = new StandardCubeSmoother(2);
+    CaveRegionGenerator generator = CaveRegionGenerator(mWalker, mSmoother);
+    mRegion = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE));
+
+
+    // Cave Poligonization.
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
     MarchingCubes algorithm;
-    algorithm.Poligonize(region->GetDensityCube(), mesh);
+    algorithm.Poligonize(mRegion->GetDensityCube(), mesh);
     
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
@@ -65,8 +59,15 @@ void CavesApp::setupScene()
 	node->scale(6,6,6);
 }
 
+void CavesApp::cleanScene()
+{
+    delete mBrush;
+    delete mSmoother;
+    delete mWalker;
+    delete mRegion;
+}
+
 
 void CavesApp::updateLogic()
 {
-	
 }

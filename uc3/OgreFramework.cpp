@@ -155,6 +155,7 @@ OgreFramework::~OgreFramework()
     if(m_pInputMgr) OIS::InputManager::destroyInputSystem(m_pInputMgr);
     if(m_pTrayMgr)  delete m_pTrayMgr;
     if(m_pRoot)     delete m_pRoot;
+    if(m_pTimer)     delete m_pTimer;
 }
 
 /// <summary>

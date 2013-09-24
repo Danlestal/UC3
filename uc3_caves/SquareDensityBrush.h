@@ -9,13 +9,9 @@ class SquareDensityCubeBrush : public DensityCubeBrush
     private:
         int _brushSize;
 
-
-	public:
-
+    public:
         SquareDensityCubeBrush(int brushSize);
-
 	    void UpdateDensityCube(UberCube* cube, int x, int y, int z);
 };
-
 #endif 
  

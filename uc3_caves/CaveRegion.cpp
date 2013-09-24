@@ -5,6 +5,11 @@ CaveRegion::CaveRegion(int globalPosX, int globalPosY,int globalPosZ, UberCube *
 {
 }
 
+CaveRegion::~CaveRegion()
+{
+    delete mCube;
+}
+
 
 int CaveRegion::GetGlobalPosX()
 {

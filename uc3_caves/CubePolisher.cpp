@@ -12,7 +12,7 @@ void CubePolisher::PolishCube(UberCube* cube)
                 bool neighbours[8];
                 cube->GetNeighbourPoints(i,j,k, neighbours);
 
-                if(cube->_densityCube[i][j][k] == false)
+                if(cube->mDensityCube[i][j][k] == false)
                 {
  
                     int numberOfTrueNeighbours = 0;
@@ -24,7 +24,7 @@ void CubePolisher::PolishCube(UberCube* cube)
 
                     if(numberOfTrueNeighbours > 3)
                     {
-                        cube->_densityCube[i][j][k] = true;
+                        cube->mDensityCube[i][j][k] = true;
                     }
                  }
             }

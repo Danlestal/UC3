@@ -15,10 +15,10 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
                 
                 bool neighbours[8];
                 cube->GetNeighbourPoints(i,j,z, neighbours);
-				BooleanVoxel *voxel = new BooleanVoxel( Ogre::Vector3(i,j,z), neighbours);
+				BooleanVoxel voxel = BooleanVoxel( Ogre::Vector3(i,j,z), neighbours);
                 
                 RawTriangle triangles[8];
-                int voxelTriangles = voxel->GetTriangle(triangles);
+                int voxelTriangles = voxel.GetTriangle(triangles);
                 
                 for(int v=0; v<voxelTriangles; v++)
                 {

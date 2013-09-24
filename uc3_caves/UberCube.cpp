@@ -2,14 +2,14 @@
 
 void UberCube::GetNeighbourPoints(int x, int y, int z, bool* outNeighbours)
 {
-	outNeighbours[0] = _densityCube[x][y][z + 1];
-	outNeighbours[1] = _densityCube[x + 1][y][z + 1];
-	outNeighbours[2] = _densityCube[x + 1][y][z];
-	outNeighbours[3] = _densityCube[x][y][z];
-	outNeighbours[4] = _densityCube[x][y + 1][z + 1];
-	outNeighbours[5] = _densityCube[x + 1][y + 1][z + 1];
-	outNeighbours[6] = _densityCube[x + 1][y + 1][z];
-	outNeighbours[7] = _densityCube[x][y + 1][z];
+	outNeighbours[0] = mDensityCube[x][y][z + 1];
+	outNeighbours[1] = mDensityCube[x + 1][y][z + 1];
+	outNeighbours[2] = mDensityCube[x + 1][y][z];
+	outNeighbours[3] = mDensityCube[x][y][z];
+	outNeighbours[4] = mDensityCube[x][y + 1][z + 1];
+	outNeighbours[5] = mDensityCube[x + 1][y + 1][z + 1];
+	outNeighbours[6] = mDensityCube[x + 1][y + 1][z];
+	outNeighbours[7] = mDensityCube[x][y + 1][z];
 }
 
 
@@ -37,9 +37,20 @@ UberCube::UberCube()
         {
             for(int k=0;k<UBERCUBE_SIZE;++k)
             {
-                _densityCube[i][j][k] = false;
+                mDensityCube[i][j][k] = false;
             }
         }
     }
+}
 
+
+UberCube::~UberCube()
+{
+    /*
+    for ( int r = 0; r < UBERCUBE_SIZE; ++r )
+    {
+        delete [] mDensityCube[r];
+    }
+    delete[] mDensityCube;
+    */
 }

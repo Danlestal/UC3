@@ -9,6 +9,9 @@ class BasicApp : public OIS::KeyListener
 	private:
         bool m_bShutdown;
 
+        virtual void setupScene() = 0;
+        virtual void cleanScene() = 0;
+
 		void BasicApp::runDemo()
 		{
 			OgreFramework::getSingletonPtr()->m_pLog->logMessage("Start main loop...");
@@ -39,18 +42,21 @@ class BasicApp : public OIS::KeyListener
 				}
 				else
 				{
-		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		            #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 					Sleep(1000);
-		#else
+		            #else
 					sleep(1);
-		#endif
+		            #endif
 				}
 			}
+
+            cleanScene();
  
-	OgreFramework::getSingletonPtr()->m_pLog->logMessage("Main loop quit");
-	OgreFramework::getSingletonPtr()->m_pLog->logMessage("Shutdown OGRE...");
-}
-		virtual void setupScene() = 0;
+	        OgreFramework::getSingletonPtr()->m_pLog->logMessage("Main loop quit");
+	        OgreFramework::getSingletonPtr()->m_pLog->logMessage("Shutdown OGRE...");
+        }
+
+		
 
 public:
 		BasicApp()
