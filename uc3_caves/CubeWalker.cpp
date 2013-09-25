@@ -3,8 +3,10 @@
 void CubeWalker::GenerateDensityCube(UberCube* uberCube, Ogre::Vector3 source, Ogre::Vector3 destination)
 {
     Ogre::Vector3 currentPosition = source;
+    
+    mBrush->UpdateDensityCube(uberCube, (int)currentPosition.x, (int)currentPosition.y, (int)currentPosition.z);
 
-	while(! (currentPosition.distance(destination) < mGoalDistance))
+	while(! (currentPosition.distance(destination) <= mGoalDistance))
 	{
 		currentPosition = UpdatePosition(uberCube, currentPosition, GenerateRandomStep(currentPosition, destination));
 	}
@@ -35,7 +37,7 @@ StepOnCube CubeWalker::GenerateRandomStep(Ogre::Vector3 currentPosition, Ogre::V
 
     if(generatedVector.directionEquals(desiredDirection, Ogre::Radian(1.00F)))
 	{
-		step.jump = 3;
+		step.jump = 1;
 	}
 
 	return step;

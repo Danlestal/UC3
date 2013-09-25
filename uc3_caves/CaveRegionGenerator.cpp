@@ -9,6 +9,10 @@ void CaveRegionGenerator::SetDensityGenerator(IDensityCubeGenerator *densityGene
     mDensityGenerator = densityGenerator;
 }
 
+void CaveRegionGenerator::SetSmoother(ICubeSmoother *smoother)
+{
+    mSmoother = smoother;
+}
 
 CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, Ogre::Vector3 cubeExit)
 {

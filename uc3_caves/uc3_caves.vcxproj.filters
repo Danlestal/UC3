@@ -21,9 +21,6 @@
     <ClCompile Include="CavesApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PseudoRandomWalker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CubeWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,12 +51,12 @@
     <ClCompile Include="StandardCubeSmoother.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CaveGenerationManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CavesApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PseudoRandomWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UberCube.h">

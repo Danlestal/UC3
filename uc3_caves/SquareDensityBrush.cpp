@@ -19,5 +19,8 @@ void SquareDensityCubeBrush::UpdateDensityCube(UberCube* cube,  int x, int y, in
 
         cube->mDensityCube[x][y][cube->NormalizeCoordinate(z + i)] = true;
         cube->mDensityCube[x][y][cube->NormalizeCoordinate(z - i)] = true;
+
+        cube->mDensityCube[cube->NormalizeCoordinate(x + i)][cube->NormalizeCoordinate(y + i)][cube->NormalizeCoordinate(z + i)] = true;
+        cube->mDensityCube[cube->NormalizeCoordinate(x - i)][cube->NormalizeCoordinate(y - i)][cube->NormalizeCoordinate(z - i)] = true;
     }
 }

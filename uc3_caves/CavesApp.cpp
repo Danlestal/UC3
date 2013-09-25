@@ -33,31 +33,48 @@ void CavesApp::setupScene()
     
 
     // All the cave generation stuff.
-    mBrush = new SquareDensityCubeBrush(10);
-    mWalker = new CubeWalker(mBrush, 10);
-    mSmoother = new StandardCubeSmoother(2);
-    CaveRegionGenerator generator = CaveRegionGenerator(mWalker, mSmoother);
-    mRegion = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE));
+    mBrush = new SquareDensityCubeBrush(24);
+    mWalker = new CubeWalker(mBrush, 1);
+    mSmoother = new StandardCubeSmoother(8);
 
+    CaveRegionGenerator generator = CaveRegionGenerator(mWalker, mSmoother);
+    mRegion = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE-1,UBERCUBE_SIZE-1,UBERCUBE_SIZE-1));
+    mRegion2 = generator.GenerateCaveRegion(Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE),Ogre::Vector3::ZERO, Ogre::Vector3(UBERCUBE_SIZE-1,UBERCUBE_SIZE-1, UBERCUBE_SIZE-1));
 
     // Cave Poligonization.
     Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
     MarchingCubes algorithm;
     algorithm.Poligonize(mRegion->GetDensityCube(), mesh);
-    
 
     Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
     entity->setMaterialName("UC3/RockWall");
     entity->setCastShadows(false);
-
     
     Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
 
  
     node->setPosition(0,0,0);
     node->attachObject(entity);
-	node->scale(6,6,6);
+
+
+
+    // Cave2 Poligonization.
+    Ogre::MeshPtr mesh2 = Ogre::MeshManager::getSingleton().createManual("CustomMesh2", "General");
+    algorithm.Poligonize(mRegion2->GetDensityCube(), mesh2);
+
+    Ogre::Entity *entity2 = ogreManager->createEntity("CustomEntity2", "CustomMesh2", "General");
+    entity2->setMaterialName("lol");
+    entity2->setCastShadows(false);
+  
+    Ogre::SceneNode* node2 = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode2");
+        
+ 
+    node2->setPosition(UBERCUBE_SIZE-1, UBERCUBE_SIZE-1, UBERCUBE_SIZE-1);
+    node2->attachObject(entity2);
+	
 }
+
+
 
 void CavesApp::cleanScene()
 {

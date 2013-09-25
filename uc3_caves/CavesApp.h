@@ -16,6 +16,7 @@ class CavesApp : public BasicApp
 	private:
 		
         CaveRegion* mRegion;
+        CaveRegion* mRegion2;
         SquareDensityCubeBrush *mBrush;
         CubeWalker *mWalker;
         StandardCubeSmoother *mSmoother;

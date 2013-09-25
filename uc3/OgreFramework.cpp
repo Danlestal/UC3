@@ -9,7 +9,7 @@ template<> OgreFramework* Ogre::Singleton<OgreFramework>::msSingleton = 0;
 /// </summary>
 OgreFramework::OgreFramework()
 {
-	m_MoveSpeed = 0.8f;
+	m_MoveSpeed = 0.4f;
 	m_RotateSpeed = 0.3f;
 	m_bShutDownOgre = false;
 	m_iNumScreenShots = 0;
