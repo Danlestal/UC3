@@ -19,5 +19,10 @@ CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition, 
     UberCube *cube = new UberCube();
     mDensityGenerator->GenerateDensityCube(cube, cubeEntrance, cubeExit);
     mSmoother->Smooth(cube);
-    return new CaveRegion(cubePosition.x, cubePosition.y, cubePosition.z, cube);
+
+    CaveRegion *region = new CaveRegion(cubePosition, cube);
+    region->AddLocalPositionExits(cubeEntrance);
+    region->AddLocalPositionExits(cubeExit);
+
+    return region;
 }
