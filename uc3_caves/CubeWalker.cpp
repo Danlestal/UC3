@@ -16,19 +16,11 @@ CubeWalker::CubeWalker(DensityCubeBrush* brush, int goalDistance) : mBrush(brush
 {
 }
 
-int CubeWalker::GenerateRandomNumber()
-{
-      boost::uniform_int<> distribution(-1,1);
-	  static unsigned int seed = 0;
-	  _rng.seed((++seed) + time(NULL));
-
-      boost::variate_generator< boost::mt19937, boost::uniform_int<> > dice(_rng, distribution);
-	  return dice();
-}
-
 StepOnCube CubeWalker::GenerateRandomStep(Ogre::Vector3 currentPosition, Ogre::Vector3 destination)
 {
-	Ogre::Vector3 generatedVector(GenerateRandomNumber(), GenerateRandomNumber(), GenerateRandomNumber());
+    RandomNumberGenerator generator = RandomNumberGenerator();
+
+    Ogre::Vector3 generatedVector(generator.GenerateRandomNumber(-1,1) , generator.GenerateRandomNumber(-1,1), generator.GenerateRandomNumber(-1,1));
 	
 	StepOnCube step = StepOnCube(generatedVector,0);
 

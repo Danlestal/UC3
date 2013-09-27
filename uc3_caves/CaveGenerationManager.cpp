@@ -1,17 +1,118 @@
 #include "CaveGenerationManager.h"
 
-void CaveGenerationManager::CreateNewRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance)
+
+CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit)
 {
-}
+    Ogre::Vector3 previousCubePosition = previousRegion->GetGlobalPos();
+    Ogre::Vector3 newCubePosition = previousCubePosition;
 
+    Ogre::Vector3 previousExitPoint = previousRegion->GetExitPointOnCubeFace(previousRegionExit);
+    Ogre::Vector3 nextCubeStartingPoint = previousExitPoint;
 
-CaveRegion CaveGenerationManager::CreateNextRegion(CaveRegion previousRegion, int exitNumberWhereAttachNewRegion)
-{
-    Ogre::Vector3  exitPosition = previousRegion.GetLocalPositionExit(exitNumberWhereAttachNewRegion);
-    UberCube *previousCube = previousRegion.GetDensityCube();
+    UberCube* newCube = new UberCube();
 
-    UberCube fethCube = *previousCube;
+    switch(previousRegionExit)
+    {
+        case TOP:
+            nextCubeStartingPoint.y = 10;
+            newCubePosition += (Ogre::Vector3(0, 1, 0) * UBERCUBE_SIZE);
 
-    
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[j][i][k] = previousRegion->GetDensityCube()->mDensityCube[j][UBERCUBE_SIZE - i][k];
+                    }
+                }
+            }
 
+        break;
+        
+        case BOTTON:
+            nextCubeStartingPoint.y = UBERCUBE_SIZE -10;
+            newCubePosition += (Ogre::Vector3(0, -1, 0) * UBERCUBE_SIZE);
+            
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[j][UBERCUBE_SIZE - i][k] = previousRegion->GetDensityCube()->mDensityCube[j][i][k];
+                    }
+                }
+            }
+
+        break;
+        
+        case LEFT:
+            nextCubeStartingPoint.x = UBERCUBE_SIZE -10;
+            newCubePosition += (Ogre::Vector3(-1, 0, 0) * UBERCUBE_SIZE);
+
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[UBERCUBE_SIZE - i][j][k] = previousRegion->GetDensityCube()->mDensityCube[i][j][k];
+                    }
+                }
+            }
+
+        break;
+        
+        case RIGHT:
+            nextCubeStartingPoint.x = 10;
+            newCubePosition += (Ogre::Vector3(1, 0, 0) * UBERCUBE_SIZE);
+
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[i][j][k] = previousRegion->GetDensityCube()->mDensityCube[UBERCUBE_SIZE - i][j][k];
+                    }
+                }
+            }
+
+        break;
+        
+        case FRONT:
+            nextCubeStartingPoint.z = UBERCUBE_SIZE -10;
+            newCubePosition += (Ogre::Vector3(0, 0, -1) * UBERCUBE_SIZE);
+
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[j][k][UBERCUBE_SIZE - i] = previousRegion->GetDensityCube()->mDensityCube[j][k][i];
+                    }
+                }
+            }
+        break;
+        
+        case BACK:
+            nextCubeStartingPoint.z = 10;
+            newCubePosition += (Ogre::Vector3(0, 0, 1) * UBERCUBE_SIZE);
+
+            for(int i = 0; i < 10; ++i)
+            {
+                for(int j = 0; j < UBERCUBE_SIZE; ++j)
+                {
+                    for(int k = 0; k < UBERCUBE_SIZE; ++k)
+                    {
+                        newCube->mDensityCube[j][k][i] = previousRegion->GetDensityCube()->mDensityCube[j][k][UBERCUBE_SIZE - i];
+                    }
+                }
+            }
+        break;
+    }
+
+    return mGenerator.GenerateCaveRegion(newCube, newCubePosition, nextCubeStartingPoint, nextRegionExit);
 }

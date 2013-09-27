@@ -14,15 +14,31 @@ void CaveRegionGenerator::SetSmoother(ICubeSmoother *smoother)
     mSmoother = smoother;
 }
 
-CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, Ogre::Vector3 cubeExit)
+CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit)
 {
     UberCube *cube = new UberCube();
-    mDensityGenerator->GenerateDensityCube(cube, cubeEntrance, cubeExit);
-    mSmoother->Smooth(cube);
-
     CaveRegion *region = new CaveRegion(cubePosition, cube);
-    region->AddLocalPositionExits(cubeEntrance);
-    region->AddLocalPositionExits(cubeExit);
+
+    region->AddRegionExitOnCubeFace(cubeFaceExit);
+    Ogre::Vector3 exitPoint = region->GetExitPointOnCubeFace(cubeFaceExit);
+
+    mDensityGenerator->GenerateDensityCube(cube, cubeEntrance, exitPoint);
+    mSmoother->Smooth(cube);
 
     return region;
 }
+
+
+CaveRegion* CaveRegionGenerator::GenerateCaveRegion(UberCube *fetchedUberCube, Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit)
+{
+    CaveRegion *region = new CaveRegion(cubePosition, fetchedUberCube);
+
+    region->AddRegionExitOnCubeFace(cubeFaceExit);
+    Ogre::Vector3 exitPoint = region->GetExitPointOnCubeFace(cubeFaceExit);
+
+    mDensityGenerator->GenerateDensityCube(fetchedUberCube, cubeEntrance, exitPoint);
+    mSmoother->Smooth(fetchedUberCube);
+
+    return region;
+}
+

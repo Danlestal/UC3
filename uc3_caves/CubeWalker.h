@@ -2,8 +2,7 @@
 #define CubeWalker_HPP
  
 #include "OgreFramework.h"
-#include "boost/random.hpp"
-#include "boost/generator_iterator.hpp"
+#include "RandomNumberGenerator.h"
 #include "UberCube.h"
 #include "DensityCubeBrush.h"
 #include "IDensityCubeGenerator.h"
@@ -26,9 +25,7 @@ class CubeWalker : public IDensityCubeGenerator
 	private:	
         DensityCubeBrush *mBrush;
 	    int mGoalDistance;
-	    boost::mt19937 _rng;
 
-	    int GenerateRandomNumber();
         void UpdateDensityCube(int x, int y, int z);
 
 	public:

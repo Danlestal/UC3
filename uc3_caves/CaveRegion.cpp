@@ -20,12 +20,42 @@ UberCube* CaveRegion::GetDensityCube()
     return mCube;
 }
 
-Ogre::Vector3 CaveRegion::GetLocalPositionExit(int exitNumber)
+
+Ogre::Vector3 GetRandomPointOnCubeFace(CubeFace face)
 {
-    return mLocalPositionExits.at(exitNumber);
+    RandomNumberGenerator generator = RandomNumberGenerator();
+    switch (face)
+    {
+    case TOP:
+        return Ogre::Vector3(generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), UBERCUBE_SIZE, generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5));
+    case BOTTON:
+        return Ogre::Vector3(generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), 0, generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5));
+    case LEFT:
+        return Ogre::Vector3(0, generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5));
+    case RIGHT:
+        return Ogre::Vector3(UBERCUBE_SIZE, generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5));
+    case FRONT:
+        return Ogre::Vector3(generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5) , UBERCUBE_SIZE);
+    case BACK:
+        return Ogre::Vector3(generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), generator.GenerateRandomNumber(5,UBERCUBE_SIZE-5), 0);
+    }
+
+
+    return Ogre::Vector3::ZERO;
 }
 
-void CaveRegion::AddLocalPositionExits(Ogre::Vector3 newExit)
+void CaveRegion::AddRegionExitOnCubeFace(CubeFace newExit)
 {
-    mLocalPositionExits.push_back(newExit);
+    if ( mRegionExits.find(newExit) == mRegionExits.end() )
+    {
+        mRegionExits[newExit] = GetRandomPointOnCubeFace(newExit);
+    }
+}
+
+Ogre::Vector3 CaveRegion::GetExitPointOnCubeFace(CubeFace face)
+{
+   if ( mRegionExits.find(face) != mRegionExits.end() )
+    {
+        return mRegionExits[face];
+    }
 }
