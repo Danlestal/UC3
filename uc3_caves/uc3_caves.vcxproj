@@ -60,7 +60,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Users\dromero\Documents\GitHub\UC3\uc3\;$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Volume\include;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\programacion\juegos\UC3\uc3\;D:\Users\dromero\Documents\GitHub\UC3\uc3\;$(OGRE_SOURCE_HOME)\OgreMain\include;$(OGRE_SOURCE_HOME)\Dependencies\include\OIS;$(OGRE_SOURCE_HOME)\Components\Volume\include;$(OGRE_SOURCE_HOME)\Components\Terrain\Include;$(OGRE_SOURCE_HOME)\Components\Overlay\Include;$(OGRE_SOURCE_HOME)\Samples\Common\Include;$(OGRE_BUILD_HOME)\Include;$(BOOST_HOME)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
