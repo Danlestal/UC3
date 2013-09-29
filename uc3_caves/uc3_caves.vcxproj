@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="BooleanVoxel.cpp" />
     <ClCompile Include="CaveGenerationManager.cpp" />
+    <ClCompile Include="CavePoligonizer.cpp" />
     <ClCompile Include="CaveRegion.cpp" />
     <ClCompile Include="CaveRegionGenerator.cpp" />
     <ClCompile Include="CavesApp.cpp" />
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CaveGenerationManager.h" />
+    <ClInclude Include="CavePoligonizer.h" />
     <ClInclude Include="CaveRegion.h" />
     <ClInclude Include="CaveRegionGenerator.h" />
     <ClInclude Include="CaveRegionStorage.h" />

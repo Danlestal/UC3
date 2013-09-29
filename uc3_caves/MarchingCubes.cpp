@@ -1,10 +1,9 @@
 #include "MarchingCubes.h"
 #include "BooleanVoxel.h"
 
-void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
+ int MarchingCubes::CreateRawTrianglesVector(UberCube* cube, std::vector<RawTriangle> *trianglesVector, Ogre::Vector3 cubeOffset)
 {
-    int numberOfTriangles = 0;
-    std::vector<RawTriangle> trianglesVector;
+	int numberOfTriangles = 0;
 
 	for(int i = 0; i < UBERCUBE_SIZE - 1; i++)
 	{
@@ -12,17 +11,16 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
 		{
 			for(int z = 0; z< UBERCUBE_SIZE - 1; z++)
 			{
-                
                 bool neighbours[8];
                 cube->GetNeighbourPoints(i,j,z, neighbours);
-				BooleanVoxel voxel = BooleanVoxel( Ogre::Vector3(i,j,z), neighbours);
+				BooleanVoxel voxel = BooleanVoxel( Ogre::Vector3(i,j,z) + cubeOffset, neighbours);
                 
                 RawTriangle triangles[8];
                 int voxelTriangles = voxel.GetTriangle(triangles);
                 
                 for(int v=0; v<voxelTriangles; v++)
                 {
-                    trianglesVector.push_back(triangles[v]);
+                    trianglesVector->push_back(triangles[v]);
                 }
 
                 numberOfTriangles += voxelTriangles;
@@ -30,8 +28,16 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
 		}
 	}
 
-    // Now that I have the triangle list, I can call Ogre to generate the mesh.
+	return numberOfTriangles;
+}
 
+void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
+{
+	std::vector<RawTriangle> trianglesVector;
+
+    int numberOfTriangles = CreateRawTrianglesVector(cube, &trianglesVector);
+
+    // Now that I have the raw vertex list, I can call Ogre to generate the mesh.
     Ogre::SubMesh *subMesh = mesh->createSubMesh();
 
     /* create the vertex data structure */

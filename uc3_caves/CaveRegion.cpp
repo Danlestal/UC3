@@ -1,9 +1,9 @@
 #include "CaveRegion.h"
 
 
-CaveRegion::CaveRegion(Ogre::Vector3 globalVector, UberCube *cube): mGlobalVector(globalVector), mCube(cube)
-{
-}
+CaveRegion::CaveRegion(Ogre::Vector3 globalVector, UberCube *cube): mGlobalVector(globalVector), mCube(cube) 
+{}
+
 
 CaveRegion::~CaveRegion()
 {
@@ -58,4 +58,9 @@ Ogre::Vector3 CaveRegion::GetExitPointOnCubeFace(CubeFace face)
     {
         return mRegionExits[face];
     }
+}
+
+void CaveRegion::GetID(char* name)
+{
+	sprintf( name, " %i_%i_%i",mGlobalVector.x, mGlobalVector.y, mGlobalVector.z );
 }

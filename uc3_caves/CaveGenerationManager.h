@@ -15,6 +15,7 @@ class CaveGenerationManager
         CaveGenerationManager(CaveRegionGenerator generator) : mGenerator(generator)
         {};
 
+		CaveRegion* CreateFirstRegion(CubeFace regionExit);
         CaveRegion* CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit);
 };
 #endif

@@ -10,6 +10,7 @@
 #include "CaveRegionGenerator.h"
 #include "ICubeSmoother.h"
 #include "StandardCubeSmoother.h"
+#include "CavePoligonizer.h"
 
 void CavesApp::setupScene()
 {
@@ -40,49 +41,25 @@ void CavesApp::setupScene()
     CaveRegionGenerator generator = CaveRegionGenerator(mWalker, mSmoother);
 
     CaveGenerationManager manager = CaveGenerationManager(generator);
-    
-
-
-
-
-
-    mRegion = generator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, CubeFace::TOP);
-    mRegion2 = manager.CreateNextRegion(mRegion,CubeFace::TOP,CubeFace::TOP);
-
-    // mRegion2 = generator.GenerateCaveRegion(Ogre::Vector3(UBERCUBE_SIZE,UBERCUBE_SIZE,UBERCUBE_SIZE),Ogre::Vector3::ZERO, CubeFace::FRONT);
+    mRegion = manager.CreateFirstRegion(CubeFace::TOP);
 
     // Cave Poligonization.
-    
-    Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("CustomMesh", "General");
-    MarchingCubes algorithm;
-    algorithm.Poligonize(mRegion->GetDensityCube(), mesh);
+	CavePoligonizer poligonizer = CavePoligonizer();
+	Ogre::MeshPtr mesh =poligonizer.Poligonize(*mRegion);
 
-    Ogre::Entity *entity = ogreManager->createEntity("CustomEntity", "CustomMesh", "General");
+
+	char regionName[50];
+	mRegion->GetID(regionName);
+
+
+    Ogre::Entity *entity = ogreManager->createEntity(regionName, regionName, "General");
     entity->setMaterialName("UC3/RockWall");
     entity->setCastShadows(false);
     
     Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
-
- 
     node->setPosition(0,0,0);
     node->attachObject(entity);
 
-
-
-    // Cave2 Poligonization.
-
-    Ogre::MeshPtr mesh2 = Ogre::MeshManager::getSingleton().createManual("CustomMesh2", "General");
-    algorithm.Poligonize(mRegion2->GetDensityCube(), mesh2);
-
-    Ogre::Entity *entity2 = ogreManager->createEntity("CustomEntity2", "CustomMesh2", "General");
-    entity2->setMaterialName("UC3/RockWall");
-    entity2->setCastShadows(false);
-  
-    Ogre::SceneNode* node2 = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode2");
-        
-    
-    node2->setPosition(mRegion2->GetGlobalPos() + Ogre::Vector3(0,-10,0));
-    node2->attachObject(entity2);
 
 	
 }

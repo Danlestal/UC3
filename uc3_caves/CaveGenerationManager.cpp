@@ -1,6 +1,11 @@
 #include "CaveGenerationManager.h"
 
 
+CaveRegion* CaveGenerationManager::CreateFirstRegion(CubeFace regionExit)
+{
+	return mGenerator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, regionExit);
+}
+
 CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit)
 {
     Ogre::Vector3 previousCubePosition = previousRegion->GetGlobalPos();

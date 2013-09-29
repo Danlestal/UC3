@@ -22,6 +22,7 @@ class CaveRegion
         UberCube *mCube;
         Ogre::Vector3 mGlobalVector;
         std::map<CubeFace, Ogre::Vector3> mRegionExits;
+		char* mName;
         
 
         CaveRegion(){}
@@ -31,6 +32,8 @@ class CaveRegion
         ~CaveRegion();
 
         Ogre::Vector3 GetGlobalPos();
+		void GetID(char* name);
+
         void AddRegionExitOnCubeFace(CubeFace newExit);
         Ogre::Vector3 GetExitPointOnCubeFace(CubeFace face);
         

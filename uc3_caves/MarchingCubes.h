@@ -4,8 +4,7 @@
 #include "OgreFramework.h"
 #include "UberCube.h"
 #include "MarchingCubesTable.h"
-
-
+#include "BooleanVoxel.h"
 
 struct Voxel
 {
@@ -31,11 +30,11 @@ struct Voxel
 	}
 };
 
-
 class MarchingCubes
 {
 	public:
-		void Poligonize(UberCube* cube, Ogre::MeshPtr mesh);
+	void Poligonize(UberCube* cube, Ogre::MeshPtr mesh);
+	int CreateRawTrianglesVector(UberCube* cube, std::vector<RawTriangle> *trianglesVector, Ogre::Vector3 cubeOffset = Ogre::Vector3::ZERO);
 
 };
 
