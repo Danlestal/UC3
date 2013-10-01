@@ -15,7 +15,7 @@ CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, 
     Ogre::Vector3 nextCubeStartingPoint = previousExitPoint;
 
     UberCube* newCube = new UberCube();
-
+/*
     switch(previousRegionExit)
     {
         case TOP:
@@ -118,6 +118,6 @@ CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, 
             }
         break;
     }
-
+*/
     return mGenerator.GenerateCaveRegion(newCube, newCubePosition, nextCubeStartingPoint, nextRegionExit);
 }

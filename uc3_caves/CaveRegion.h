@@ -21,9 +21,9 @@ class CaveRegion
     protected:
         UberCube *mCube;
         Ogre::Vector3 mGlobalVector;
-        std::map<CubeFace, Ogre::Vector3> mRegionExits;
-		char* mName;
         
+        std::map<CubeFace, Ogre::Vector3> mRegionExits;
+        std::map<CubeFace, CaveRegion*> mRegionNeighbours;
 
         CaveRegion(){}
 

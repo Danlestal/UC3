@@ -45,20 +45,22 @@ void CavesApp::setupScene()
 
     // Cave Poligonization.
 	CavePoligonizer poligonizer = CavePoligonizer();
-	Ogre::MeshPtr mesh =poligonizer.Poligonize(*mRegion);
+	//Ogre::MeshPtr mesh =poligonizer.Poligonize(*mRegion);
+    Ogre::ManualObject* manual = poligonizer.Poligonize(*mRegion);
 
 
+    
 	char regionName[50];
 	mRegion->GetID(regionName);
-
+    /*
 
     Ogre::Entity *entity = ogreManager->createEntity(regionName, regionName, "General");
     entity->setMaterialName("UC3/RockWall");
     entity->setCastShadows(false);
-    
-    Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode("caveNode");
-    node->setPosition(0,0,0);
-    node->attachObject(entity);
+    */
+    Ogre::SceneNode* node = ogreManager->getRootSceneNode()->createChildSceneNode(regionName);
+    node->setPosition(mRegion->GetGlobalPos());
+    node->attachObject(manual);
 
 
 	

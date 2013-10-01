@@ -7,7 +7,7 @@ CaveRegion::CaveRegion(Ogre::Vector3 globalVector, UberCube *cube): mGlobalVecto
 
 CaveRegion::~CaveRegion()
 {
-    delete mCube;
+    //delete mCube;
 }
 
 Ogre::Vector3 CaveRegion::GetGlobalPos()

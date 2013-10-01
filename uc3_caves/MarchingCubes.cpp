@@ -154,3 +154,34 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
     mesh->load();
  
 }
+
+void MarchingCubes::Poligonize(UberCube* cube, Ogre::ManualObject* manualObject)
+{
+	std::vector<RawTriangle> trianglesVector;
+
+    int numberOfTriangles = CreateRawTrianglesVector(cube, &trianglesVector);
+    manualObject->begin("lol", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+
+    int offset = 0;
+
+    for (std::vector<RawTriangle>::iterator it = trianglesVector.begin() ; it != trianglesVector.end(); ++it)
+    {
+
+        manualObject->position(it->p[0].x, it->p[0].y, it->p[0].z);
+        manualObject->textureCoord(0, 0);
+
+        manualObject->position(it->p[1].x, it->p[1].y, it->p[1].z);
+        manualObject->textureCoord(0, 1);
+
+        manualObject->position(it->p[2].x, it->p[2].y, it->p[2].z);
+        manualObject->textureCoord(0, 1);
+
+        manualObject->triangle(offset, offset + 1, offset + 2);
+        manualObject->triangle(offset, offset + 2, offset + 1);
+        offset = offset + 3;
+
+    }
+
+    manualObject->end();
+    manualObject->setBoundingBox(Ogre::AxisAlignedBox(0, 0, 0, UBERCUBE_SIZE, UBERCUBE_SIZE, UBERCUBE_SIZE));
+}

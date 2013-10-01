@@ -15,7 +15,7 @@ class CavePoligonizer
 		{
 		}
 
-		 Ogre::MeshPtr Poligonize(CaveRegion region);
+		Ogre::ManualObject* Poligonize(CaveRegion region);
 
 };
 #endif
