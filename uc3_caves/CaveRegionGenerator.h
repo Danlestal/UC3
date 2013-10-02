@@ -16,7 +16,16 @@ class CaveRegionGenerator
 
         void SetDensityGenerator(IDensityCubeGenerator *densityGenerator);
         void SetSmoother(ICubeSmoother *smoother);
-        CaveRegion* GenerateCaveRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit);
-        CaveRegion* GenerateCaveRegion(UberCube *fetchedUberCube, Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit);
+        
+		CaveRegion* GenerateCaveRegion(Ogre::Vector3 cubePosition);
+
+		void AddBlindPathToCaveRegion(CaveRegion* caveToModified, Ogre::Vector3 pathStart, Ogre::Vector3 pathEnd);
+		void AddExitToCaveRegion(CaveRegion* caveToModified, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit);
+		void SmoothCave(CaveRegion* caveToModified);
+
+		void PrepareCaveJoint(CaveRegion* nextCave, const CaveRegion* currentRegion, CubeFace currentRegionExit);
+
+
+        
 };
 #endif

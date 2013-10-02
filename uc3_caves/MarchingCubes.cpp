@@ -5,11 +5,11 @@
 {
 	int numberOfTriangles = 0;
 
-	for(int i = 0; i < UBERCUBE_SIZE - 1; i++)
+	for(int i = 1; i < UBERCUBE_SIZE - 1; i++)
 	{
-		for(int j = 0; j< UBERCUBE_SIZE - 1; j++)
+		for(int j = 1; j< UBERCUBE_SIZE - 1; j++)
 		{
-			for(int z = 0; z< UBERCUBE_SIZE - 1; z++)
+			for(int z = 1; z< UBERCUBE_SIZE - 1; z++)
 			{
                 bool neighbours[8];
                 cube->GetNeighbourPoints(i,j,z, neighbours);
@@ -164,7 +164,8 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::ManualObject* manualObject)
 
     int offset = 0;
 
-    for (std::vector<RawTriangle>::iterator it = trianglesVector.begin() ; it != trianglesVector.end(); ++it)
+	bool firstTriangle = true;
+    for (std::vector<RawTriangle>::iterator it = trianglesVector.begin()  ; it != trianglesVector.end(); ++it)
     {
 
         manualObject->position(it->p[0].x, it->p[0].y, it->p[0].z);
@@ -176,6 +177,7 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::ManualObject* manualObject)
         manualObject->position(it->p[2].x, it->p[2].y, it->p[2].z);
         manualObject->textureCoord(0, 1);
 
+				
         manualObject->triangle(offset, offset + 1, offset + 2);
         manualObject->triangle(offset, offset + 2, offset + 1);
         offset = offset + 3;

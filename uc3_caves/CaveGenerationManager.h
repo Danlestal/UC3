@@ -16,6 +16,9 @@ class CaveGenerationManager
         {};
 
 		CaveRegion* CreateFirstRegion(CubeFace regionExit);
-        CaveRegion* CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit);
+		CaveRegion* CreateNextRegion(CaveRegion* currentRegion, CubeFace currentRegionExit,  CubeFace nextRegionExit);
+
+
+       // CaveRegion* CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit);
 };
 #endif

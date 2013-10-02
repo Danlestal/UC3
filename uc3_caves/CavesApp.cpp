@@ -35,9 +35,9 @@ void CavesApp::setupScene()
     
 
     // All the cave generation stuff.
-    mBrush = new SquareDensityCubeBrush(10);
+    mBrush = new SquareDensityCubeBrush(12);
     mWalker = new CubeWalker(mBrush, 1);
-    mSmoother = new StandardCubeSmoother(6);
+    mSmoother = new StandardCubeSmoother(8);
     CaveRegionGenerator generator = CaveRegionGenerator(mWalker, mSmoother);
 
     CaveGenerationManager manager = CaveGenerationManager(generator);

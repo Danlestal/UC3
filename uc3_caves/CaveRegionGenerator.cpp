@@ -14,31 +14,34 @@ void CaveRegionGenerator::SetSmoother(ICubeSmoother *smoother)
     mSmoother = smoother;
 }
 
-CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit)
+
+CaveRegion* CaveRegionGenerator::GenerateCaveRegion(Ogre::Vector3 cubePosition)
 {
     UberCube *cube = new UberCube();
     CaveRegion *region = new CaveRegion(cubePosition, cube);
-
-    region->AddRegionExitOnCubeFace(cubeFaceExit);
-    Ogre::Vector3 exitPoint = region->GetExitPointOnCubeFace(cubeFaceExit);
-
-    mDensityGenerator->GenerateDensityCube(cube, cubeEntrance, exitPoint);
-    mSmoother->Smooth(cube);
-
     return region;
 }
 
-
-CaveRegion* CaveRegionGenerator::GenerateCaveRegion(UberCube *fetchedUberCube, Ogre::Vector3 cubePosition, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit)
+void CaveRegionGenerator::AddBlindPathToCaveRegion(CaveRegion* caveToModified, Ogre::Vector3 pathStart, Ogre::Vector3 pathEnd)
 {
-    CaveRegion *region = new CaveRegion(cubePosition, fetchedUberCube);
-
-    region->AddRegionExitOnCubeFace(cubeFaceExit);
-    Ogre::Vector3 exitPoint = region->GetExitPointOnCubeFace(cubeFaceExit);
-
-    mDensityGenerator->GenerateDensityCube(fetchedUberCube, cubeEntrance, exitPoint);
-    mSmoother->Smooth(fetchedUberCube);
-
-    return region;
+	//TODO: CHECK THAT NEITHER PATH START OR PATHEND ARE ON THE CUBE BOUNDARIES.
+	mDensityGenerator->GenerateDensityCube(caveToModified->GetDensityCube(), pathStart, pathEnd);
 }
 
+void CaveRegionGenerator::AddExitToCaveRegion(CaveRegion* caveToModified, Ogre::Vector3 cubeEntrance, CubeFace cubeFaceExit)
+{
+	caveToModified->AddRegionExitOnCubeFace(cubeFaceExit);
+    Ogre::Vector3 exitPoint = caveToModified->GetExitPointOnCubeFace(cubeFaceExit);
+	mDensityGenerator->GenerateDensityCube(caveToModified->GetDensityCube(), cubeEntrance, exitPoint);
+}
+
+
+void CaveRegionGenerator::SmoothCave(CaveRegion* caveToModified)
+{
+	mSmoother->Smooth(caveToModified->GetDensityCube());
+}
+
+
+void CaveRegionGenerator::PrepareCaveJoint(CaveRegion* nextCave, const CaveRegion* currentRegion, CubeFace currentRegionExit)
+{
+}

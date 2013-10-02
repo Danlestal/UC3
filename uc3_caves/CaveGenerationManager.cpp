@@ -3,9 +3,80 @@
 
 CaveRegion* CaveGenerationManager::CreateFirstRegion(CubeFace regionExit)
 {
-	return mGenerator.GenerateCaveRegion(Ogre::Vector3::ZERO, Ogre::Vector3::ZERO, regionExit);
+	CaveRegion* firstCave =  mGenerator.GenerateCaveRegion(Ogre::Vector3::ZERO);
+	mGenerator.AddExitToCaveRegion(firstCave, Ogre::Vector3(1,1,1), regionExit);
+	mGenerator.SmoothCave(firstCave);
+	return firstCave;
 }
 
+
+CubeFace GetOpossiteFace(CubeFace nextRegionExit)
+{
+	switch(nextRegionExit)
+	{
+		case TOP:
+			return CubeFace::BOTTON;
+        
+        case BOTTON:
+			return CubeFace::TOP;
+        
+        case LEFT:
+			return CubeFace::RIGHT;
+        
+        case RIGHT:
+			return CubeFace::LEFT;
+        
+        case FRONT:
+			return CubeFace::BACK;
+        
+        case BACK:
+			return CubeFace::FRONT;
+	}
+}
+
+Ogre::Vector3 GetIncrementVector(CubeFace currentRegionExit)
+{
+	switch(currentRegionExit)
+	{
+		case TOP:
+			return Ogre::Vector3(0, 1, 0);
+        
+        case BOTTON:
+			return Ogre::Vector3(0, -1, 0);
+        
+        case LEFT:
+			return Ogre::Vector3(-1, 0, 0);
+        
+        case RIGHT:
+			return Ogre::Vector3(1, 0, 0);
+        
+        case FRONT:
+			return Ogre::Vector3(0, 0, -1);
+        
+        case BACK:
+			return Ogre::Vector3(0, 0, 1);
+	}
+}
+
+CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* currentRegion, CubeFace currentRegionExit, CubeFace nextRegionExit)
+{
+	Ogre::Vector3 incrementVector = GetIncrementVector(currentRegionExit);
+	Ogre::Vector3 nextRegionPosition = currentRegion->GetGlobalPos() + (incrementVector * UBERCUBE_SIZE);
+	CaveRegion* nextRegion =  mGenerator.GenerateCaveRegion(nextRegionPosition);
+
+	Ogre::Vector3 previousExitPoint = currentRegion->GetExitPointOnCubeFace(currentRegionExit);
+	Ogre::Vector3 nextStartingPoint = previousExitPoint - (previousExitPoint * incrementVector.normalise());
+
+	mGenerator.AddExitToCaveRegion(nextRegion, nextStartingPoint, nextRegionExit);
+	mGenerator.SmoothCave(nextRegion);
+
+	currentRegion->AddCaveNeighbour(currentRegionExit, nextRegion);
+	nextRegion->AddCaveNeighbour(GetOpossiteFace(nextRegionExit), currentRegion);
+
+	return nextRegion;
+}
+
+/*
 CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, CubeFace previousRegionExit, CubeFace nextRegionExit)
 {
     Ogre::Vector3 previousCubePosition = previousRegion->GetGlobalPos();
@@ -15,7 +86,7 @@ CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, 
     Ogre::Vector3 nextCubeStartingPoint = previousExitPoint;
 
     UberCube* newCube = new UberCube();
-/*
+
     switch(previousRegionExit)
     {
         case TOP:
@@ -118,6 +189,7 @@ CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* previousRegion, 
             }
         break;
     }
-*/
+
     return mGenerator.GenerateCaveRegion(newCube, newCubePosition, nextCubeStartingPoint, nextRegionExit);
 }
+*/
