@@ -11,12 +11,11 @@
 	return manual;
 }
 
-void GetVectorInformation(Ogre::ManualObject* manualObject, Ogre::Vector3* &vertices)
+void GetVectorInformation(Ogre::ManualObject* manualObject, std::vector<Ogre::Vector3> vertices)
 {
     Ogre::ManualObject::ManualObjectSection* section = static_cast<Ogre::ManualObject*>(manualObject)->getSection(0) ;
     Ogre::RenderOperation* renderOperation = section->getRenderOperation();
     Ogre::VertexData* vertexData = renderOperation->vertexData;
-    vertices = new Ogre::Vector3[vertexData->vertexCount];
 
     const Ogre::VertexElement* posElem = vertexData->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);
     Ogre::HardwareVertexBufferSharedPtr vbuf = vertexData->vertexBufferBinding->getBuffer(posElem->getSource());
@@ -32,14 +31,71 @@ void GetVectorInformation(Ogre::ManualObject* manualObject, Ogre::Vector3* &vert
         pt.x = (*pReal++);
         pt.y = (*pReal++);
         pt.z = (*pReal++);
-        vertices[j].x = pt.x;
-        vertices[j].y = pt.y;
-        vertices[j].z = pt.z;
+        vertices.push_back(Ogre::Vector3(pt.x, pt.y,pt.z));
     }
 }
 
-void GetBoundaryVectors(Ogre::Vector3 *allVertex, CubeFace boundaryFace, Ogre::Vector3* &boundaryVertex)
+void GetBoundaryVertex(std::vector<Ogre::Vector3> allVertex, CubeFace boundaryFace, std::vector<Ogre::Vector3> boundaryVertex)
 {
+    switch(boundaryFace)
+    {
+        case CubeFace::LEFT:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).x == 0)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+        case CubeFace::TOP:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).y == UBERCUBE_SIZE -1)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+        case CubeFace::RIGHT:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).x == UBERCUBE_SIZE -1)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+        case CubeFace::BOTTON:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).y == 0)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+        case CubeFace::FRONT:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).z == 0)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+        case CubeFace::BACK:
+            for(std::vector<Ogre::Vector3>::iterator allVertexIterator = allVertex.begin(); allVertexIterator != allVertex.end(); ++allVertexIterator)
+            {
+                if((*allVertexIterator).z == UBERCUBE_SIZE -1)
+                {
+                    boundaryVertex.push_back(*allVertexIterator);
+                }
+            }
+        break;
+    }
+
+   
 }
 
 std::map<CubeFace, Ogre::ManualObject*> CavePoligonizer::PoligonizeNeighbours(CaveRegion region,  Ogre::ManualObject* mainRegionManualObject)
@@ -47,8 +103,9 @@ std::map<CubeFace, Ogre::ManualObject*> CavePoligonizer::PoligonizeNeighbours(Ca
 	std::map<CubeFace, Ogre::ManualObject*> result;
 	
     // BEGIN: LOL
-    Ogre::Vector3 *mainRegionVectorInfo;
+    std::vector<Ogre::Vector3> mainRegionVectorInfo;
     GetVectorInformation(mainRegionManualObject, mainRegionVectorInfo);
+    
     // END: LOL
 
 
@@ -60,8 +117,12 @@ std::map<CubeFace, Ogre::ManualObject*> CavePoligonizer::PoligonizeNeighbours(Ca
         char neighBourRegionName[50];
 	    neighBourRegion->GetID(neighBourRegionName);
 
-        Ogre::ManualObject *manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject(neighBourRegionName);
-        mMarchingCubesAlgorithm.Poligonize(neighBourRegion->GetDensityCube(), manual);
+        Ogre::ManualObject *neighbourManual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject(neighBourRegionName);
+        mMarchingCubesAlgorithm.Poligonize(neighBourRegion->GetDensityCube(), neighbourManual);
+
+        std::vector<Ogre::Vector3> boundaryVectorInfo;
+        GetBoundaryVertex(mainRegionVectorInfo, neighboursMapIterator->first, boundaryVectorInfo);
+
 
         // Add the new stick section with the region. To do so, we need to have the final vertex of the region.
     }
