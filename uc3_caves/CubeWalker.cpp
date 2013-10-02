@@ -10,6 +10,7 @@ void CubeWalker::GenerateDensityCube(UberCube* uberCube, Ogre::Vector3 source, O
 	{
 		currentPosition = UpdatePosition(uberCube, currentPosition, GenerateRandomStep(currentPosition, destination));
 	}
+    // Prepare ending.
 }
 
 CubeWalker::CubeWalker(DensityCubeBrush* brush, int goalDistance) : mBrush(brush), mGoalDistance(goalDistance)

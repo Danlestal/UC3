@@ -16,8 +16,8 @@ class CavePoligonizer
 		}
 
 		Ogre::ManualObject* Poligonize(CaveRegion region);
-		std::map<CubeFace, Ogre::ManualObject*> PoligonizeNeighbours(CaveRegion region);
-		Ogre::ManualObject* PoligonizeNeighbour(CaveRegion region, CubeFace faceWithNeighbour)
+		std::map<CubeFace, Ogre::ManualObject*> PoligonizeNeighbours(CaveRegion region,  Ogre::ManualObject* mainRegionManualObject);
+		Ogre::ManualObject* PoligonizeNeighbour(CaveRegion region, CubeFace faceWithNeighbour);
 
 };
 #endif
