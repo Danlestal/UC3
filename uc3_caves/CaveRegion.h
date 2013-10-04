@@ -4,17 +4,7 @@
 #include "Ogre.h"
 #include "UberCube.h"
 #include "RandomNumberGenerator.h"
-
-
-enum CubeFace
-{
-    TOP,
-    BOTTON,
-    LEFT,
-    RIGHT,
-    FRONT,
-    BACK
-};
+#include "CubeFaceUtils.h"
 
 class CaveRegion
 {

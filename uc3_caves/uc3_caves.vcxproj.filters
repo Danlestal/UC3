@@ -122,6 +122,9 @@
     <ClInclude Include="CavePoligonizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CubeFaceUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Documentation.txt">

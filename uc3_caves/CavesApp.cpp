@@ -42,11 +42,13 @@ void CavesApp::setupScene()
 
     CaveGenerationManager manager = CaveGenerationManager(generator);
     mRegion = manager.CreateFirstRegion(CubeFace::TOP);
+    manager.CreateNextRegion(mRegion,CubeFace::TOP,CubeFace::TOP);
 
     // Cave Poligonization.
 	CavePoligonizer poligonizer = CavePoligonizer();
-	//Ogre::MeshPtr mesh =poligonizer.Poligonize(*mRegion);
-    Ogre::ManualObject* manual = poligonizer.Poligonize(*mRegion);
+    Ogre::ManualObject *manual = poligonizer.Poligonize(*mRegion);
+    poligonizer.PoligonizeNeighbours(*mRegion,manual);
+    
 
 
     

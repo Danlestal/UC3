@@ -61,7 +61,7 @@ Ogre::Vector3 CaveRegion::GetExitPointOnCubeFace(CubeFace face)
 
 void CaveRegion::GetID(char* name)
 {
-	sprintf( name, " %i_%i_%i",mGlobalVector.x, mGlobalVector.y, mGlobalVector.z );
+	sprintf( name, " %d_%d_%d", (int)mGlobalVector.x, (int)mGlobalVector.y, (int)mGlobalVector.z );
 }
 
 void CaveRegion::AddCaveNeighbour(CubeFace newExit, CaveRegion* neighbourRegion)

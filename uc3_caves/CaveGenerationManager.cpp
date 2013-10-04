@@ -10,54 +10,6 @@ CaveRegion* CaveGenerationManager::CreateFirstRegion(CubeFace regionExit)
 }
 
 
-CubeFace GetOpossiteFace(CubeFace nextRegionExit)
-{
-	switch(nextRegionExit)
-	{
-		case TOP:
-			return CubeFace::BOTTON;
-        
-        case BOTTON:
-			return CubeFace::TOP;
-        
-        case LEFT:
-			return CubeFace::RIGHT;
-        
-        case RIGHT:
-			return CubeFace::LEFT;
-        
-        case FRONT:
-			return CubeFace::BACK;
-        
-        case BACK:
-			return CubeFace::FRONT;
-	}
-}
-
-Ogre::Vector3 GetIncrementVector(CubeFace currentRegionExit)
-{
-	switch(currentRegionExit)
-	{
-		case TOP:
-			return Ogre::Vector3(0, 1, 0);
-        
-        case BOTTON:
-			return Ogre::Vector3(0, -1, 0);
-        
-        case LEFT:
-			return Ogre::Vector3(-1, 0, 0);
-        
-        case RIGHT:
-			return Ogre::Vector3(1, 0, 0);
-        
-        case FRONT:
-			return Ogre::Vector3(0, 0, -1);
-        
-        case BACK:
-			return Ogre::Vector3(0, 0, 1);
-	}
-}
-
 CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* currentRegion, CubeFace currentRegionExit, CubeFace nextRegionExit)
 {
 	Ogre::Vector3 incrementVector = GetIncrementVector(currentRegionExit);
@@ -65,7 +17,7 @@ CaveRegion* CaveGenerationManager::CreateNextRegion(CaveRegion* currentRegion, C
 	CaveRegion* nextRegion =  mGenerator.GenerateCaveRegion(nextRegionPosition);
 
 	Ogre::Vector3 previousExitPoint = currentRegion->GetExitPointOnCubeFace(currentRegionExit);
-	Ogre::Vector3 nextStartingPoint = previousExitPoint - (previousExitPoint * incrementVector.normalise());
+	Ogre::Vector3 nextStartingPoint = previousExitPoint - (previousExitPoint * incrementVector);
 
 	mGenerator.AddExitToCaveRegion(nextRegion, nextStartingPoint, nextRegionExit);
 	mGenerator.SmoothCave(nextRegion);

@@ -129,6 +129,7 @@
     <ClInclude Include="CaveRegionGenerator.h" />
     <ClInclude Include="CaveRegionStorage.h" />
     <ClInclude Include="CavesApp.h" />
+    <ClInclude Include="CubeFaceUtils.h" />
     <ClInclude Include="CubePolisher.h" />
     <ClInclude Include="CubeSinusWalker.h" />
     <ClInclude Include="CubeWalker.h" />

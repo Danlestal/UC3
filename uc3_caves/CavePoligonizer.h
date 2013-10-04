@@ -4,6 +4,7 @@
 #include "OgreFramework.h"
 #include "CaveRegion.h"
 #include "MarchingCubes.h"
+#include "CubeFaceUtils.h"
 
 class CavePoligonizer
 {

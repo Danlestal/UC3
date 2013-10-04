@@ -155,6 +155,7 @@ void MarchingCubes::Poligonize(UberCube* cube, Ogre::MeshPtr mesh)
  
 }
 
+
 void MarchingCubes::Poligonize(UberCube* cube, Ogre::ManualObject* manualObject)
 {
 	std::vector<RawTriangle> trianglesVector;
